@@ -1,23 +1,25 @@
+from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import joblib
 import numpy as np
 import os
 
-app = FastAPI()
-
-MODEL_PATH = os.getenv("MODEL_PATH", "app/model.joblib")
 model = None
 
 
-@app.on_event("startup")
-def load_model():
-    global model, MODEL_PATH
-    MODEL_PATH = os.getenv("MODEL_PATH", "app/model.joblib")
+@asynccontextmanager
+async def lifespan(application: FastAPI):
+    global model
+    model_path = os.getenv("MODEL_PATH", "app/model.joblib")
     try:
-        model = joblib.load(MODEL_PATH)
+        model = joblib.load(model_path)
     except Exception:
         model = None
+    yield
+
+
+app = FastAPI(lifespan=lifespan)
 
 
 class CustomerData(BaseModel):
