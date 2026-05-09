@@ -1,0 +1,17 @@
+app/model.joblib
+app/metrics.json
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+.env
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+zip_contents/
+telco-churn-mlops.zip
+.ipynb_checkpoints/
+data/telco_churn.csv
+.claude/

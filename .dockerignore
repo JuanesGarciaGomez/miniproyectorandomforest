@@ -1,0 +1,16 @@
+.git
+.gitignore
+.dockerignore
+.github/
+.claude/
+tests/
+notebooks/
+zip_contents/
+*.zip
+*.md
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+data/telco_churn.csv
