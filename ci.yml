@@ -1,0 +1,101 @@
+# =====================================================
+# GitHub Actions — Pipeline de CI/CD
+# =====================================================
+# Se ejecuta en cada push a main y en cada pull request.
+# Pasos:
+#  1. Lint con flake8.
+#  2. Tests unitarios con pytest (incluye API con TestClient).
+#  3. Si los tests pasan y estamos en main, construye la imagen Docker.
+#
+# Nota: NO publicamos la imagen a un registry por defecto. Para hacerlo,
+# descomenta el job `publish` y configura DOCKERHUB_USERNAME y
+# DOCKERHUB_TOKEN en Settings → Secrets.
+
+name: CI Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  # ---------------------------------------------------
+  # 1. Lint + Tests
+  # ---------------------------------------------------
+  test:
+    name: Lint & Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Lint with flake8
+        run: |
+          # E501 (línea larga) y W503 (salto antes de operador) los
+          # ignoramos para no bloquear PRs por puro estilo.
+          flake8 app/ tests/ train_model.py --ignore=E501,W503,E203 --max-complexity=12
+
+      - name: Run pytest
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+        run: pytest tests/ -v --tb=short
+
+  # ---------------------------------------------------
+  # 2. Build Docker (solo en main, después de tests OK)
+  # ---------------------------------------------------
+  build-docker:
+    name: Build Docker image
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build image (no push)
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: false
+          tags: telco-churn-api:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  # ---------------------------------------------------
+  # 3. (Opcional) Publicar a Docker Hub
+  # ---------------------------------------------------
+  # publish:
+  #   name: Publish to Docker Hub
+  #   runs-on: ubuntu-latest
+  #   needs: build-docker
+  #   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: docker/setup-buildx-action@v3
+  #     - uses: docker/login-action@v3
+  #       with:
+  #         username: ${{ secrets.DOCKERHUB_USERNAME }}
+  #         password: ${{ secrets.DOCKERHUB_TOKEN }}
+  #     - uses: docker/build-push-action@v5
+  #       with:
+  #         context: .
+  #         push: true
+  #         tags: ${{ secrets.DOCKERHUB_USERNAME }}/telco-churn-api:latest

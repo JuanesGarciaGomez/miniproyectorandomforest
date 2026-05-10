@@ -1,5 +1,8 @@
 app/model.joblib
+model.joblib
 app/metrics.json
+telco_churn.csv
+catboost_info/
 __pycache__/
 *.pyc
 *.pyo
