@@ -1,0 +1,564 @@
+
+<!DOCTYPE html>
+
+
+<html lang="es" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>3. Interpretabilidad con LIMELos modelos de árboles dan importancias globales (qué features usa el modelo en general), pero no explican una predicción individual: ¿por qué este cliente concreto recibió 0.87 de probabilidad de churn?LIME (Local Interpretable Model-agnostic Explanations) responde esa pregunta entrenando un modelo lineal simple alrededor de la observación de interés, perturbando ligeramente sus features y viendo cómo cambia la predicción. El resultado es una lista de features con su contribución (positiva o negativa) a esa predicción específica.Aplicaremos LIME a 3 casos representativos:1. Un cliente con alta probabilidad de churn (verdadero positivo).2. Un cliente fiel que el modelo identifica correctamente como retenido.3. Un caso en la frontera (probabilidad cercana a 0.5). &#8212; Predictor de Churn Telco — MLOps</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=78d55cf8"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Haz clic para mostrar';</script>
+    <script>let toggleHintHide = 'Haz clic para ocultar';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=b8b12719"></script>
+    <script src="../../../_static/translations.js?v=d190bf04"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'zip_contents/telco-churn-mlops/notebooks/3_interpretability';</script>
+    <link rel="index" title="Índice" href="../../../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="es"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Saltar al contenido principal</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Volver arriba</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Advertencia de versión"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../notebooks/1_eda_preprocessing.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Predictor de Churn Telco — MLOps</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Búsqueda</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../notebooks/1_eda_preprocessing.html">
+                    1. EDA y Preprocesamiento — Telco Customer ChurnEste notebook hace el análisis exploratorio del dataset y deja documentadas las decisiones de limpieza que luego usará el módulo app/preprocessing.py durante el entrenamiento.Objetivo: entender la estructura de los datos, detectar problemas (valores faltantes, tipos incorrectos, desbalance de clases) y proponer un esquema de preprocesamiento robusto.> ⚠️ El dataset no se incluye en el repo. Sigue las instrucciones de data/README.md para descargarlo.
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/2_model_training.html">2. Entrenamiento y evaluación de modelos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/3_interpretability.html">3. Interpretabilidad con LIMELos modelos de árboles dan importancias <strong>globales</strong> (qué features usa el modelo en general), pero no explican una predicción <strong>individual</strong>: ¿por qué este cliente concreto recibió 0.87 de probabilidad de churn?LIME (Local Interpretable Model-agnostic Explanations) responde esa pregunta entrenando un modelo lineal simple alrededor de la observación de interés, perturbando ligeramente sus features y viendo cómo cambia la predicción. El resultado es una lista de features con su contribución (positiva o negativa) a esa predicción específica.<strong>Aplicaremos LIME a 3 casos representativos</strong>:1. Un cliente con alta probabilidad de churn (verdadero positivo).2. Un cliente fiel que el modelo identifica correctamente como retenido.3. Un caso en la frontera (probabilidad cercana a 0.5).</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/JuanesGarciaGomez/miniproyectorandomforest" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Repositorio de origen"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Descarga esta pagina">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/zip_contents/telco-churn-mlops/notebooks/3_interpretability.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Descargar archivo fuente"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Imprimir en PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Modo de pantalla completa"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="claro/oscuro" aria-label="claro/oscuro" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>3. Interpretabilidad con LIMELos modelos de árboles dan importancias globales (qué features usa el modelo en general), pero no explican una predicción individual: ¿por qué este cliente concreto recibió 0.87 de probabilidad de churn?LIME (Local Interpretable Model-agnostic Explanations) responde esa pregunta entrenando un modelo lineal simple alrededor de la observación de interés, perturbando ligeramente sus features y viendo cómo cambia la predicción. El resultado es una lista de features con su contribución (positiva o negativa) a esa predicción específica.Aplicaremos LIME a 3 casos representativos:1. Un cliente con alta probabilidad de churn (verdadero positivo).2. Un cliente fiel que el modelo identifica correctamente como retenido.3. Un caso en la frontera (probabilidad cercana a 0.5).</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contenido </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recuperar-el-modelo-y-los-datos">3.1 Recuperar el modelo y los datos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configurar-limetabularexplainerlime-espera-arrays-numericos-como-nuestro-pipeline-ya-hace-one-hot-internamente-tenemos-dos-opciones-1-aplicar-lime-sobre-los-datos-crudos-dataframe-con-strings-y-pasar-una-predict-fn-que-envuelva-el-pipeline-eso-nos-obliga-a-indicar-a-lime-que-columnas-son-categoricas-2-aplicar-lime-sobre-los-datos-ya-transformados-con-el-preprocessor-extraido-del-pipeline-vamos-con-la-opcion-2-porque-lime-explica-mejor-cuando-trabaja-con-la-representacion-numerica-final-que-ve-el-modelo">3.2 Configurar LimeTabularExplainerLIME espera arrays numéricos. Como nuestro pipeline ya hace one-hot internamente, tenemos dos opciones:1. Aplicar LIME <strong>sobre los datos crudos</strong> (DataFrame con strings) y pasar una <code class="docutils literal notranslate"><span class="pre">predict_fn</span></code> que envuelva el pipeline. Eso nos obliga a indicar a LIME qué columnas son categóricas.2. Aplicar LIME <strong>sobre los datos ya transformados</strong>, con el preprocessor extraído del pipeline.Vamos con la opción <strong>(2)</strong> porque LIME explica mejor cuando trabaja con la representación numérica final que ve el modelo.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#funcion-helper-para-mostrar-explicaciones">3.3 Función helper para mostrar explicaciones</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-1-cliente-con-alta-probabilidad-de-churn">3.4 Caso 1 — Cliente con alta probabilidad de churn</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-2-cliente-fiel-correctamente-clasificado">3.5 Caso 2 — Cliente fiel correctamente clasificado</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-3-cliente-en-la-frontera-decision-incierta">3.6 Caso 3 — Cliente en la frontera (decisión incierta)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lecturas-y-limitaciones-de-limelime-es-util-pero-tiene-puntos-a-tener-presentes-1-es-local-no-global-una-explicacion-valida-para-un-cliente-no-se-generaliza-a-la-poblacion-2-es-estocastico-lime-perturba-aleatoriamente-alrededor-del-punto-distintas-corridas-pueden-dar-pesos-ligeramente-distintos-por-eso-fijamos-random-state-3-el-modelo-lineal-sustituto-que-lime-ajusta-puede-ser-mala-aproximacion-si-la-frontera-de-decision-local-es-muy-curva-4-discretizacion-de-continuas-discretize-continuous-true-ayuda-a-leer-los-resultados-pero-pierde-resolucion-5-no-es-causal-lime-explica-que-features-mueven-la-prediccion-no-que-causa-el-churn-en-la-realidad-alternativas-y-complementos-que-podrias-considerar-despues-shap-explicaciones-basadas-en-valores-de-shapley-con-mejor-base-teorica-y-consistencia-partial-dependence-plots-ice-efecto-marginal-de-una-feature-sobre-la-prediccion-counterfactuals-ej-dice-que-tendria-que-cambiar-este-cliente-para-que-la-prediccion-se-invierta">3.7 Lecturas y limitaciones de LIMELIME es útil pero tiene puntos a tener presentes:1. <strong>Es local</strong>, no global. Una explicación válida para un cliente no se generaliza a la población.2. <strong>Es estocástico</strong>: LIME perturba aleatoriamente alrededor del punto. Distintas corridas pueden dar pesos ligeramente distintos. Por eso fijamos <code class="docutils literal notranslate"><span class="pre">random_state</span></code>.3. <strong>El modelo lineal sustituto</strong> que LIME ajusta puede ser mala aproximación si la frontera de decisión local es muy curva.4. <strong>Discretización de continuas</strong> (<code class="docutils literal notranslate"><span class="pre">discretize_continuous=True</span></code>) ayuda a leer los resultados pero pierde resolución.5. <strong>No es causal</strong>: LIME explica qué features mueven la predicción, no qué causa el churn en la realidad.<strong>Alternativas y complementos</strong> que podrías considerar después:- <strong>SHAP</strong>: explicaciones basadas en valores de Shapley con mejor base teórica y consistencia.- <strong>Partial Dependence Plots / ICE</strong>: efecto marginal de una feature sobre la predicción.- <strong>Counterfactuals</strong> (ej. DiCE): «qué tendría que cambiar este cliente para que la predicción se invierta».</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resumen-del-flujo-del-proyecto-notebook-1-eda-y-decisiones-de-preprocesamiento-notebook-2-pipeline-con-4-modelos-gridsearchcv-con-cv-estratificada-evaluacion-seleccion-y-persistencia-notebook-3-interpretabilidad-con-lime-para-3-casos-representativos-siguiente-paso-fuera-del-notebook-la-api-en-app-api-py-levanta-el-modelo-y-lo-sirve-por-http-todo-dentro-de-un-contenedor-docker-ver-readme-md">3.8 Resumen del flujo del proyecto✅ <strong>Notebook 1</strong>: EDA y decisiones de preprocesamiento.✅ <strong>Notebook 2</strong>: Pipeline con 4 modelos, GridSearchCV con CV estratificada, evaluación, selección y persistencia.✅ <strong>Notebook 3</strong>: Interpretabilidad con LIME para 3 casos representativos.<strong>Siguiente paso fuera del notebook</strong>: la API en <code class="docutils literal notranslate"><span class="pre">app/api.py</span></code> levanta el modelo y lo sirve por HTTP, todo dentro de un contenedor Docker. Ver <code class="docutils literal notranslate"><span class="pre">README.md</span></code>.</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="interpretabilidad-con-limelos-modelos-de-arboles-dan-importancias-globales-que-features-usa-el-modelo-en-general-pero-no-explican-una-prediccion-individual-por-que-este-cliente-concreto-recibio-0-87-de-probabilidad-de-churn-lime-local-interpretable-model-agnostic-explanations-responde-esa-pregunta-entrenando-un-modelo-lineal-simple-alrededor-de-la-observacion-de-interes-perturbando-ligeramente-sus-features-y-viendo-como-cambia-la-prediccion-el-resultado-es-una-lista-de-features-con-su-contribucion-positiva-o-negativa-a-esa-prediccion-especifica-aplicaremos-lime-a-3-casos-representativos-1-un-cliente-con-alta-probabilidad-de-churn-verdadero-positivo-2-un-cliente-fiel-que-el-modelo-identifica-correctamente-como-retenido-3-un-caso-en-la-frontera-probabilidad-cercana-a-0-5">
+<h1>3. Interpretabilidad con LIMELos modelos de árboles dan importancias <strong>globales</strong> (qué features usa el modelo en general), pero no explican una predicción <strong>individual</strong>: ¿por qué este cliente concreto recibió 0.87 de probabilidad de churn?LIME (Local Interpretable Model-agnostic Explanations) responde esa pregunta entrenando un modelo lineal simple alrededor de la observación de interés, perturbando ligeramente sus features y viendo cómo cambia la predicción. El resultado es una lista de features con su contribución (positiva o negativa) a esa predicción específica.<strong>Aplicaremos LIME a 3 casos representativos</strong>:1. Un cliente con alta probabilidad de churn (verdadero positivo).2. Un cliente fiel que el modelo identifica correctamente como retenido.3. Un caso en la frontera (probabilidad cercana a 0.5).<a class="headerlink" href="#interpretabilidad-con-limelos-modelos-de-arboles-dan-importancias-globales-que-features-usa-el-modelo-en-general-pero-no-explican-una-prediccion-individual-por-que-este-cliente-concreto-recibio-0-87-de-probabilidad-de-churn-lime-local-interpretable-model-agnostic-explanations-responde-esa-pregunta-entrenando-un-modelo-lineal-simple-alrededor-de-la-observacion-de-interes-perturbando-ligeramente-sus-features-y-viendo-como-cambia-la-prediccion-el-resultado-es-una-lista-de-features-con-su-contribucion-positiva-o-negativa-a-esa-prediccion-especifica-aplicaremos-lime-a-3-casos-representativos-1-un-cliente-con-alta-probabilidad-de-churn-verdadero-positivo-2-un-cliente-fiel-que-el-modelo-identifica-correctamente-como-retenido-3-un-caso-en-la-frontera-probabilidad-cercana-a-0-5" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warningswarnings.filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">npimport</span> <span class="n">pandas</span> <span class="k">as</span> <span class="n">pdimport</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">pyplot</span> <span class="k">as</span> <span class="n">pltimport</span> <span class="n">joblibfrom</span> <span class="n">pathlib</span> <span class="kn">import</span><span class="w"> </span><span class="nn">Pathimport</span> <span class="n">syssys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;..&quot;</span><span class="p">)</span><span class="kn">from</span><span class="w"> </span><span class="nn">app.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>    <span class="n">ALL_FEATURES</span><span class="p">,</span> <span class="n">NUMERIC_FEATURES</span><span class="p">,</span> <span class="n">CATEGORICAL_FEATURES</span><span class="p">,</span>    <span class="n">TARGET_COLUMN</span><span class="p">,</span> <span class="n">build_feature_frame</span><span class="p">,</span> <span class="n">clean_total_charges</span><span class="p">,)</span><span class="kn">import</span><span class="w"> </span><span class="nn">limeimport</span> <span class="n">lime</span><span class="o">.</span><span class="n">lime_tabularRANDOM_STATE</span> <span class="o">=</span> <span class="mi">42</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="recuperar-el-modelo-y-los-datos">
+<h2>3.1 Recuperar el modelo y los datos<a class="headerlink" href="#recuperar-el-modelo-y-los-datos" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">artifact</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;../app/model.joblib&quot;</span><span class="p">)</span><span class="n">pipeline</span> <span class="o">=</span> <span class="n">artifact</span><span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">]</span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Modelo cargado: </span><span class="si">{</span><span class="n">artifact</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Métricas guardadas: </span><span class="si">{</span><span class="n">artifact</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;metrics&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/telco_churn.csv&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;customerID&quot;</span><span class="p">])</span><span class="n">df</span> <span class="o">=</span> <span class="n">clean_total_charges</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">TARGET_COLUMN</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Yes&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="n">X</span> <span class="o">=</span> <span class="n">build_feature_frame</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="n">TARGET_COLUMN</span><span class="p">]))</span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_splitX_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>    <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.20</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">RANDOM_STATE</span><span class="p">,)</span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Test set: </span><span class="si">{</span><span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="configurar-limetabularexplainerlime-espera-arrays-numericos-como-nuestro-pipeline-ya-hace-one-hot-internamente-tenemos-dos-opciones-1-aplicar-lime-sobre-los-datos-crudos-dataframe-con-strings-y-pasar-una-predict-fn-que-envuelva-el-pipeline-eso-nos-obliga-a-indicar-a-lime-que-columnas-son-categoricas-2-aplicar-lime-sobre-los-datos-ya-transformados-con-el-preprocessor-extraido-del-pipeline-vamos-con-la-opcion-2-porque-lime-explica-mejor-cuando-trabaja-con-la-representacion-numerica-final-que-ve-el-modelo">
+<h2>3.2 Configurar LimeTabularExplainerLIME espera arrays numéricos. Como nuestro pipeline ya hace one-hot internamente, tenemos dos opciones:1. Aplicar LIME <strong>sobre los datos crudos</strong> (DataFrame con strings) y pasar una <code class="docutils literal notranslate"><span class="pre">predict_fn</span></code> que envuelva el pipeline. Eso nos obliga a indicar a LIME qué columnas son categóricas.2. Aplicar LIME <strong>sobre los datos ya transformados</strong>, con el preprocessor extraído del pipeline.Vamos con la opción <strong>(2)</strong> porque LIME explica mejor cuando trabaja con la representación numérica final que ve el modelo.<a class="headerlink" href="#configurar-limetabularexplainerlime-espera-arrays-numericos-como-nuestro-pipeline-ya-hace-one-hot-internamente-tenemos-dos-opciones-1-aplicar-lime-sobre-los-datos-crudos-dataframe-con-strings-y-pasar-una-predict-fn-que-envuelva-el-pipeline-eso-nos-obliga-a-indicar-a-lime-que-columnas-son-categoricas-2-aplicar-lime-sobre-los-datos-ya-transformados-con-el-preprocessor-extraido-del-pipeline-vamos-con-la-opcion-2-porque-lime-explica-mejor-cuando-trabaja-con-la-representacion-numerica-final-que-ve-el-modelo" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extraer el preprocesador y transformarpreprocessor = pipeline.named_steps[&quot;preprocessor&quot;]model_only   = pipeline.named_steps[&quot;model&quot;]X_train_arr = preprocessor.transform(X_train)X_test_arr  = preprocessor.transform(X_test)feature_names = list(preprocessor.get_feature_names_out())print(f&quot;Features tras preprocesar: {len(feature_names)}&quot;)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">explainer</span> <span class="o">=</span> <span class="n">lime</span><span class="o">.</span><span class="n">lime_tabular</span><span class="o">.</span><span class="n">LimeTabularExplainer</span><span class="p">(</span>    <span class="n">training_data</span><span class="o">=</span><span class="n">X_train_arr</span><span class="p">,</span>    <span class="n">feature_names</span><span class="o">=</span><span class="n">feature_names</span><span class="p">,</span>    <span class="n">class_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;No Churn&quot;</span><span class="p">,</span> <span class="s2">&quot;Churn&quot;</span><span class="p">],</span>    <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;classification&quot;</span><span class="p">,</span>    <span class="n">discretize_continuous</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>    <span class="n">random_state</span><span class="o">=</span><span class="n">RANDOM_STATE</span><span class="p">,)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="funcion-helper-para-mostrar-explicaciones">
+<h2>3.3 Función helper para mostrar explicaciones<a class="headerlink" href="#funcion-helper-para-mostrar-explicaciones" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">explain_case</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">X_arr</span><span class="p">,</span> <span class="n">X_raw</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">num_features</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>    <span class="s2">&quot;&quot;&quot;Genera y muestra la explicación LIME para una fila del test.&quot;&quot;&quot;</span>    <span class="n">proba</span> <span class="o">=</span> <span class="n">model_only</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_arr</span><span class="p">[</span><span class="n">idx</span><span class="p">:</span><span class="n">idx</span><span class="o">+</span><span class="mi">1</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>    <span class="n">real_label</span> <span class="o">=</span> <span class="s2">&quot;Churn&quot;</span> <span class="k">if</span> <span class="n">y_true</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="s2">&quot;No Churn&quot;</span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Caso #</span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Real:        </span><span class="si">{</span><span class="n">real_label</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  P(No Churn): </span><span class="si">{</span><span class="n">proba</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  P(Churn):    </span><span class="si">{</span><span class="n">proba</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Datos originales del cliente:&quot;</span><span class="p">)</span>    <span class="nb">print</span><span class="p">(</span><span class="n">X_raw</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">to_dict</span><span class="p">())</span>    <span class="n">exp</span> <span class="o">=</span> <span class="n">explainer</span><span class="o">.</span><span class="n">explain_instance</span><span class="p">(</span>        <span class="n">data_row</span><span class="o">=</span><span class="n">X_arr</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span>        <span class="n">predict_fn</span><span class="o">=</span><span class="n">model_only</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">,</span>        <span class="n">num_features</span><span class="o">=</span><span class="n">num_features</span><span class="p">,</span>    <span class="p">)</span>    <span class="n">fig</span> <span class="o">=</span> <span class="n">exp</span><span class="o">.</span><span class="n">as_pyplot_figure</span><span class="p">()</span>    <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>    <span class="k">return</span> <span class="n">exp</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="caso-1-cliente-con-alta-probabilidad-de-churn">
+<h2>3.4 Caso 1 — Cliente con alta probabilidad de churn<a class="headerlink" href="#caso-1-cliente-con-alta-probabilidad-de-churn" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Encontramos el cliente con mayor probabilidad de churn entre los reales positivosprobas = model_only.predict_proba(X_test_arr)[:, 1]mask_pos = (y_test.values == 1)top_idx = np.where(mask_pos)[0][np.argmax(probas[mask_pos])]exp1 = explain_case(top_idx, X_test_arr, X_test, y_test)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Análisis Caso 1</strong>:- Las <strong>barras naranjas/rojas</strong> del lado derecho empujan hacia la clase <strong>Churn</strong>: típicamente verás <code class="docutils literal notranslate"><span class="pre">Contract_Month-to-month=1</span></code>, <code class="docutils literal notranslate"><span class="pre">tenure</span> <span class="pre">≤</span> <span class="pre">X</span></code> (con X bajo, ej. ≤ 9), <code class="docutils literal notranslate"><span class="pre">InternetService_Fiber</span> <span class="pre">optic=1</span></code>, <code class="docutils literal notranslate"><span class="pre">OnlineSecurity_No=1</span></code>.- Las <strong>barras del lado izquierdo (verde/azul)</strong>, si las hay, empujan hacia «No Churn» — pero en un caso de alta probabilidad de churn habrá pocas o ninguna.- Esta lectura es local: para <em>otro</em> cliente con churn alto, el conjunto de razones puede variar (ej. uno por contrato corto, otro por cargos altos).</p>
+</section>
+<section id="caso-2-cliente-fiel-correctamente-clasificado">
+<h2>3.5 Caso 2 — Cliente fiel correctamente clasificado<a class="headerlink" href="#caso-2-cliente-fiel-correctamente-clasificado" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mask_neg</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_test</span><span class="o">.</span><span class="n">values</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span><span class="n">low_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">mask_neg</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">probas</span><span class="p">[</span><span class="n">mask_neg</span><span class="p">])]</span><span class="n">exp2</span> <span class="o">=</span> <span class="n">explain_case</span><span class="p">(</span><span class="n">low_idx</span><span class="p">,</span> <span class="n">X_test_arr</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Análisis Caso 2</strong>:- Aquí esperamos ver lo opuesto: features que <strong>empujan a No Churn</strong> dominan. Casi siempre <code class="docutils literal notranslate"><span class="pre">Contract_Two</span> <span class="pre">year=1</span></code>, <code class="docutils literal notranslate"><span class="pre">tenure</span></code> alto (&gt; 50 meses), <code class="docutils literal notranslate"><span class="pre">OnlineSecurity_Yes=1</span></code>, <code class="docutils literal notranslate"><span class="pre">TechSupport_Yes=1</span></code>.- Estos clientes son «anclas» — el modelo está muy seguro de que se quedarán. Para una estrategia de retención, no son prioridad.</p>
+</section>
+<section id="caso-3-cliente-en-la-frontera-decision-incierta">
+<h2>3.6 Caso 3 — Cliente en la frontera (decisión incierta)<a class="headerlink" href="#caso-3-cliente-en-la-frontera-decision-incierta" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Cliente más cercano a la probabilidad 0.5borderline_idx = int(np.argmin(np.abs(probas - 0.5)))exp3 = explain_case(borderline_idx, X_test_arr, X_test, y_test)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Análisis Caso 3</strong>:- En un cliente borderline veremos una mezcla de barras hacia ambos lados. La predicción final es esencialmente una pulseada entre señales contradictorias.- <strong>Estos son los casos más valiosos para el negocio</strong>: probabilidades cerca de 0.5 son los clientes en los que una intervención de retención (descuento, llamada, mejora de servicio) puede tener el mayor ROI, porque pequeños cambios en las features los pueden mover hacia «No Churn».- También son los casos donde el modelo está menos seguro y donde <em>vale la pena revisar manualmente</em> antes de tomar acción comercial.</p>
+</section>
+<section id="lecturas-y-limitaciones-de-limelime-es-util-pero-tiene-puntos-a-tener-presentes-1-es-local-no-global-una-explicacion-valida-para-un-cliente-no-se-generaliza-a-la-poblacion-2-es-estocastico-lime-perturba-aleatoriamente-alrededor-del-punto-distintas-corridas-pueden-dar-pesos-ligeramente-distintos-por-eso-fijamos-random-state-3-el-modelo-lineal-sustituto-que-lime-ajusta-puede-ser-mala-aproximacion-si-la-frontera-de-decision-local-es-muy-curva-4-discretizacion-de-continuas-discretize-continuous-true-ayuda-a-leer-los-resultados-pero-pierde-resolucion-5-no-es-causal-lime-explica-que-features-mueven-la-prediccion-no-que-causa-el-churn-en-la-realidad-alternativas-y-complementos-que-podrias-considerar-despues-shap-explicaciones-basadas-en-valores-de-shapley-con-mejor-base-teorica-y-consistencia-partial-dependence-plots-ice-efecto-marginal-de-una-feature-sobre-la-prediccion-counterfactuals-ej-dice-que-tendria-que-cambiar-este-cliente-para-que-la-prediccion-se-invierta">
+<h2>3.7 Lecturas y limitaciones de LIMELIME es útil pero tiene puntos a tener presentes:1. <strong>Es local</strong>, no global. Una explicación válida para un cliente no se generaliza a la población.2. <strong>Es estocástico</strong>: LIME perturba aleatoriamente alrededor del punto. Distintas corridas pueden dar pesos ligeramente distintos. Por eso fijamos <code class="docutils literal notranslate"><span class="pre">random_state</span></code>.3. <strong>El modelo lineal sustituto</strong> que LIME ajusta puede ser mala aproximación si la frontera de decisión local es muy curva.4. <strong>Discretización de continuas</strong> (<code class="docutils literal notranslate"><span class="pre">discretize_continuous=True</span></code>) ayuda a leer los resultados pero pierde resolución.5. <strong>No es causal</strong>: LIME explica qué features mueven la predicción, no qué causa el churn en la realidad.<strong>Alternativas y complementos</strong> que podrías considerar después:- <strong>SHAP</strong>: explicaciones basadas en valores de Shapley con mejor base teórica y consistencia.- <strong>Partial Dependence Plots / ICE</strong>: efecto marginal de una feature sobre la predicción.- <strong>Counterfactuals</strong> (ej. DiCE): «qué tendría que cambiar este cliente para que la predicción se invierta».<a class="headerlink" href="#lecturas-y-limitaciones-de-limelime-es-util-pero-tiene-puntos-a-tener-presentes-1-es-local-no-global-una-explicacion-valida-para-un-cliente-no-se-generaliza-a-la-poblacion-2-es-estocastico-lime-perturba-aleatoriamente-alrededor-del-punto-distintas-corridas-pueden-dar-pesos-ligeramente-distintos-por-eso-fijamos-random-state-3-el-modelo-lineal-sustituto-que-lime-ajusta-puede-ser-mala-aproximacion-si-la-frontera-de-decision-local-es-muy-curva-4-discretizacion-de-continuas-discretize-continuous-true-ayuda-a-leer-los-resultados-pero-pierde-resolucion-5-no-es-causal-lime-explica-que-features-mueven-la-prediccion-no-que-causa-el-churn-en-la-realidad-alternativas-y-complementos-que-podrias-considerar-despues-shap-explicaciones-basadas-en-valores-de-shapley-con-mejor-base-teorica-y-consistencia-partial-dependence-plots-ice-efecto-marginal-de-una-feature-sobre-la-prediccion-counterfactuals-ej-dice-que-tendria-que-cambiar-este-cliente-para-que-la-prediccion-se-invierta" title="Link to this heading">#</a></h2>
+</section>
+<section id="resumen-del-flujo-del-proyecto-notebook-1-eda-y-decisiones-de-preprocesamiento-notebook-2-pipeline-con-4-modelos-gridsearchcv-con-cv-estratificada-evaluacion-seleccion-y-persistencia-notebook-3-interpretabilidad-con-lime-para-3-casos-representativos-siguiente-paso-fuera-del-notebook-la-api-en-app-api-py-levanta-el-modelo-y-lo-sirve-por-http-todo-dentro-de-un-contenedor-docker-ver-readme-md">
+<h2>3.8 Resumen del flujo del proyecto✅ <strong>Notebook 1</strong>: EDA y decisiones de preprocesamiento.✅ <strong>Notebook 2</strong>: Pipeline con 4 modelos, GridSearchCV con CV estratificada, evaluación, selección y persistencia.✅ <strong>Notebook 3</strong>: Interpretabilidad con LIME para 3 casos representativos.<strong>Siguiente paso fuera del notebook</strong>: la API en <code class="docutils literal notranslate"><span class="pre">app/api.py</span></code> levanta el modelo y lo sirve por HTTP, todo dentro de un contenedor Docker. Ver <code class="docutils literal notranslate"><span class="pre">README.md</span></code>.<a class="headerlink" href="#resumen-del-flujo-del-proyecto-notebook-1-eda-y-decisiones-de-preprocesamiento-notebook-2-pipeline-con-4-modelos-gridsearchcv-con-cv-estratificada-evaluacion-seleccion-y-persistencia-notebook-3-interpretabilidad-con-lime-para-3-casos-representativos-siguiente-paso-fuera-del-notebook-la-api-en-app-api-py-levanta-el-modelo-y-lo-sirve-por-http-todo-dentro-de-un-contenedor-docker-ver-readme-md" title="Link to this heading">#</a></h2>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./zip_contents\telco-churn-mlops\notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenido
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recuperar-el-modelo-y-los-datos">3.1 Recuperar el modelo y los datos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configurar-limetabularexplainerlime-espera-arrays-numericos-como-nuestro-pipeline-ya-hace-one-hot-internamente-tenemos-dos-opciones-1-aplicar-lime-sobre-los-datos-crudos-dataframe-con-strings-y-pasar-una-predict-fn-que-envuelva-el-pipeline-eso-nos-obliga-a-indicar-a-lime-que-columnas-son-categoricas-2-aplicar-lime-sobre-los-datos-ya-transformados-con-el-preprocessor-extraido-del-pipeline-vamos-con-la-opcion-2-porque-lime-explica-mejor-cuando-trabaja-con-la-representacion-numerica-final-que-ve-el-modelo">3.2 Configurar LimeTabularExplainerLIME espera arrays numéricos. Como nuestro pipeline ya hace one-hot internamente, tenemos dos opciones:1. Aplicar LIME <strong>sobre los datos crudos</strong> (DataFrame con strings) y pasar una <code class="docutils literal notranslate"><span class="pre">predict_fn</span></code> que envuelva el pipeline. Eso nos obliga a indicar a LIME qué columnas son categóricas.2. Aplicar LIME <strong>sobre los datos ya transformados</strong>, con el preprocessor extraído del pipeline.Vamos con la opción <strong>(2)</strong> porque LIME explica mejor cuando trabaja con la representación numérica final que ve el modelo.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#funcion-helper-para-mostrar-explicaciones">3.3 Función helper para mostrar explicaciones</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-1-cliente-con-alta-probabilidad-de-churn">3.4 Caso 1 — Cliente con alta probabilidad de churn</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-2-cliente-fiel-correctamente-clasificado">3.5 Caso 2 — Cliente fiel correctamente clasificado</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-3-cliente-en-la-frontera-decision-incierta">3.6 Caso 3 — Cliente en la frontera (decisión incierta)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lecturas-y-limitaciones-de-limelime-es-util-pero-tiene-puntos-a-tener-presentes-1-es-local-no-global-una-explicacion-valida-para-un-cliente-no-se-generaliza-a-la-poblacion-2-es-estocastico-lime-perturba-aleatoriamente-alrededor-del-punto-distintas-corridas-pueden-dar-pesos-ligeramente-distintos-por-eso-fijamos-random-state-3-el-modelo-lineal-sustituto-que-lime-ajusta-puede-ser-mala-aproximacion-si-la-frontera-de-decision-local-es-muy-curva-4-discretizacion-de-continuas-discretize-continuous-true-ayuda-a-leer-los-resultados-pero-pierde-resolucion-5-no-es-causal-lime-explica-que-features-mueven-la-prediccion-no-que-causa-el-churn-en-la-realidad-alternativas-y-complementos-que-podrias-considerar-despues-shap-explicaciones-basadas-en-valores-de-shapley-con-mejor-base-teorica-y-consistencia-partial-dependence-plots-ice-efecto-marginal-de-una-feature-sobre-la-prediccion-counterfactuals-ej-dice-que-tendria-que-cambiar-este-cliente-para-que-la-prediccion-se-invierta">3.7 Lecturas y limitaciones de LIMELIME es útil pero tiene puntos a tener presentes:1. <strong>Es local</strong>, no global. Una explicación válida para un cliente no se generaliza a la población.2. <strong>Es estocástico</strong>: LIME perturba aleatoriamente alrededor del punto. Distintas corridas pueden dar pesos ligeramente distintos. Por eso fijamos <code class="docutils literal notranslate"><span class="pre">random_state</span></code>.3. <strong>El modelo lineal sustituto</strong> que LIME ajusta puede ser mala aproximación si la frontera de decisión local es muy curva.4. <strong>Discretización de continuas</strong> (<code class="docutils literal notranslate"><span class="pre">discretize_continuous=True</span></code>) ayuda a leer los resultados pero pierde resolución.5. <strong>No es causal</strong>: LIME explica qué features mueven la predicción, no qué causa el churn en la realidad.<strong>Alternativas y complementos</strong> que podrías considerar después:- <strong>SHAP</strong>: explicaciones basadas en valores de Shapley con mejor base teórica y consistencia.- <strong>Partial Dependence Plots / ICE</strong>: efecto marginal de una feature sobre la predicción.- <strong>Counterfactuals</strong> (ej. DiCE): «qué tendría que cambiar este cliente para que la predicción se invierta».</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resumen-del-flujo-del-proyecto-notebook-1-eda-y-decisiones-de-preprocesamiento-notebook-2-pipeline-con-4-modelos-gridsearchcv-con-cv-estratificada-evaluacion-seleccion-y-persistencia-notebook-3-interpretabilidad-con-lime-para-3-casos-representativos-siguiente-paso-fuera-del-notebook-la-api-en-app-api-py-levanta-el-modelo-y-lo-sirve-por-http-todo-dentro-de-un-contenedor-docker-ver-readme-md">3.8 Resumen del flujo del proyecto✅ <strong>Notebook 1</strong>: EDA y decisiones de preprocesamiento.✅ <strong>Notebook 2</strong>: Pipeline con 4 modelos, GridSearchCV con CV estratificada, evaluación, selección y persistencia.✅ <strong>Notebook 3</strong>: Interpretabilidad con LIME para 3 casos representativos.<strong>Siguiente paso fuera del notebook</strong>: la API en <code class="docutils literal notranslate"><span class="pre">app/api.py</span></code> levanta el modelo y lo sirve por HTTP, todo dentro de un contenedor Docker. Ver <code class="docutils literal notranslate"><span class="pre">README.md</span></code>.</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Por JuanesGarciaGomez
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

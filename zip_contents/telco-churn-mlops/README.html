@@ -1,0 +1,900 @@
+
+<!DOCTYPE html>
+
+
+<html lang="es" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Telco Customer Churn — Proyecto MLOps &#8212; Predictor de Churn Telco — MLOps</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=78d55cf8"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Haz clic para mostrar';</script>
+    <script>let toggleHintHide = 'Haz clic para ocultar';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+    <script src="../../_static/translations.js?v=d190bf04"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'zip_contents/telco-churn-mlops/README';</script>
+    <link rel="index" title="Índice" href="../../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="es"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Saltar al contenido principal</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Volver arriba</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Advertencia de versión"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../notebooks/1_eda_preprocessing.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Predictor de Churn Telco — MLOps</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Búsqueda</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../notebooks/1_eda_preprocessing.html">
+                    1. EDA y Preprocesamiento — Telco Customer ChurnEste notebook hace el análisis exploratorio del dataset y deja documentadas las decisiones de limpieza que luego usará el módulo app/preprocessing.py durante el entrenamiento.Objetivo: entender la estructura de los datos, detectar problemas (valores faltantes, tipos incorrectos, desbalance de clases) y proponer un esquema de preprocesamiento robusto.> ⚠️ El dataset no se incluye en el repo. Sigue las instrucciones de data/README.md para descargarlo.
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/2_model_training.html">2. Entrenamiento y evaluación de modelos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/3_interpretability.html">3. Interpretabilidad con LIMELos modelos de árboles dan importancias <strong>globales</strong> (qué features usa el modelo en general), pero no explican una predicción <strong>individual</strong>: ¿por qué este cliente concreto recibió 0.87 de probabilidad de churn?LIME (Local Interpretable Model-agnostic Explanations) responde esa pregunta entrenando un modelo lineal simple alrededor de la observación de interés, perturbando ligeramente sus features y viendo cómo cambia la predicción. El resultado es una lista de features con su contribución (positiva o negativa) a esa predicción específica.<strong>Aplicaremos LIME a 3 casos representativos</strong>:1. Un cliente con alta probabilidad de churn (verdadero positivo).2. Un cliente fiel que el modelo identifica correctamente como retenido.3. Un caso en la frontera (probabilidad cercana a 0.5).</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/JuanesGarciaGomez/miniproyectorandomforest" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Repositorio de origen"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Descarga esta pagina">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/zip_contents/telco-churn-mlops/README.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Descargar archivo fuente"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Imprimir en PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Modo de pantalla completa"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="claro/oscuro" aria-label="claro/oscuro" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Telco Customer Churn — Proyecto MLOps</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contenido </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tabla-de-contenidos">Tabla de contenidos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descripcion">Descripción</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arquitectura">Arquitectura</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estructura-del-repositorio">Estructura del repositorio</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion">Instalación</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#requisitos">Requisitos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-local">Setup local</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#uso-notebooks">Uso — Notebooks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#uso-script-de-entrenamiento">Uso — Script de entrenamiento</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#uso-api-local">Uso — API local</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#endpoints">Endpoints</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-curl">Ejemplo <code class="docutils literal notranslate"><span class="pre">curl</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#uso-docker">Uso — Docker</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build">Build</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejecucion-modo-persistente">Ejecución (modo persistente)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#persistencia-y-volumenes">Persistencia y volúmenes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tests">Tests</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ci-cd">CI/CD</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recomendaciones-de-mlops">Recomendaciones de MLOps</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#monitoreo-en-produccion">1. Monitoreo en producción</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deteccion-de-deriva-drift">2. Detección de deriva (drift)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reentrenamiento-programado">3. Reentrenamiento programado</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#despliegue-en-la-nube">4. Despliegue en la nube</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#versionado-y-registry">5. Versionado y registry</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#escalabilidad">6. Escalabilidad</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#seguridad">7. Seguridad</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#licencia-y-referencias">Licencia y referencias</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="telco-customer-churn-proyecto-mlops">
+<h1>Telco Customer Churn — Proyecto MLOps<a class="headerlink" href="#telco-customer-churn-proyecto-mlops" title="Link to this heading">#</a></h1>
+<p>Predicción de abandono (churn) de clientes en una empresa de telecomunicaciones, usando árboles de decisión ensamblados (Random Forest, XGBoost, CatBoost, LightGBM), interpretabilidad con LIME, y un servicio de inferencia FastAPI desplegable con Docker y CI/CD en GitHub Actions.</p>
+<hr class="docutils" />
+<section id="tabla-de-contenidos">
+<h2>Tabla de contenidos<a class="headerlink" href="#tabla-de-contenidos" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><a class="reference internal" href="#descripci%C3%B3n"><span class="xref myst">Descripción</span></a></p></li>
+<li><p><a class="reference internal" href="#arquitectura"><span class="xref myst">Arquitectura</span></a></p></li>
+<li><p><a class="reference internal" href="#estructura-del-repositorio"><span class="xref myst">Estructura del repositorio</span></a></p></li>
+<li><p><a class="reference internal" href="#instalaci%C3%B3n"><span class="xref myst">Instalación</span></a></p></li>
+<li><p><a class="reference internal" href="#uso--notebooks"><span class="xref myst">Uso — Notebooks</span></a></p></li>
+<li><p><a class="reference internal" href="#uso--script-de-entrenamiento"><span class="xref myst">Uso — Script de entrenamiento</span></a></p></li>
+<li><p><a class="reference internal" href="#uso--api-local"><span class="xref myst">Uso — API local</span></a></p></li>
+<li><p><a class="reference internal" href="#uso--docker"><span class="xref myst">Uso — Docker</span></a></p></li>
+<li><p><a class="reference internal" href="#tests"><span class="xref myst">Tests</span></a></p></li>
+<li><p><a class="reference internal" href="#cicd"><span class="xref myst">CI/CD</span></a></p></li>
+<li><p><a class="reference internal" href="#recomendaciones-de-mlops"><span class="xref myst">Recomendaciones de MLOps</span></a></p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="descripcion">
+<h2>Descripción<a class="headerlink" href="#descripcion" title="Link to this heading">#</a></h2>
+<p>El dataset <strong>Telco Customer Churn</strong> (Kaggle, ~7043 filas) contiene información demográfica, de servicios contratados y facturación de clientes, junto con la etiqueta <code class="docutils literal notranslate"><span class="pre">Churn</span></code> (Yes/No). El churn ronda el 27%, así que es un problema de <strong>clasificación binaria con desbalance moderado</strong>.</p>
+<p>El proyecto cubre:</p>
+<ul class="simple">
+<li><p><strong>EDA</strong> y preprocesamiento documentado (notebook 1).</p></li>
+<li><p><strong>4 modelos</strong> entrenados con <code class="docutils literal notranslate"><span class="pre">Pipeline</span></code> + <code class="docutils literal notranslate"><span class="pre">GridSearchCV</span></code> + <code class="docutils literal notranslate"><span class="pre">StratifiedKFold(5)</span></code>, con XGBoost en GPU si está disponible (notebook 2).</p></li>
+<li><p><strong>Interpretabilidad local</strong> con LIME sobre 3 casos representativos (notebook 3).</p></li>
+<li><p><strong>Servicio REST</strong> con FastAPI (<code class="docutils literal notranslate"><span class="pre">app/api.py</span></code>) que carga el mejor pipeline y expone <code class="docutils literal notranslate"><span class="pre">/predict</span></code>.</p></li>
+<li><p><strong>Contenerización</strong> con Dockerfile multi-stage minimalista.</p></li>
+<li><p><strong>CI/CD</strong> con GitHub Actions (lint + tests + build de imagen).</p></li>
+<li><p><strong>Tests unitarios</strong> del módulo de preprocesamiento y de la API con <code class="docutils literal notranslate"><span class="pre">TestClient</span></code>.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="arquitectura">
+<h2>Arquitectura<a class="headerlink" href="#arquitectura" title="Link to this heading">#</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>                                     ┌──────────────────────────┐
+                                     │    notebooks/2_model     │
+   data/telco_churn.csv  ─────────►  │    train_model.py        │
+   (raw, no en repo)                 └──────────┬───────────────┘
+                                                │ joblib.dump
+                                                ▼
+                                        app/model.joblib
+                                                │
+                                                │ joblib.load
+                                                ▼
+   POST /predict  ──►  FastAPI (Uvicorn)  ──►  Pipeline
+                       │                       (preprocessor + clf)
+                       │                       │
+                       └─►  Pydantic            └─►  predict_proba
+                            validation                ▼
+                                            JSON {churn_probability,
+                                                  prediction, model_name}
+</pre></div>
+</div>
+<p>Todo el código que el modelo necesita en serving (definición de columnas, ColumnTransformer) está en <strong><code class="docutils literal notranslate"><span class="pre">app/preprocessing.py</span></code></strong> y se importa tanto en entrenamiento como en la API → no hay training-serving skew.</p>
+</section>
+<hr class="docutils" />
+<section id="estructura-del-repositorio">
+<h2>Estructura del repositorio<a class="headerlink" href="#estructura-del-repositorio" title="Link to this heading">#</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>telco-churn-mlops/
+├── data/
+│   ├── README.md                  # Cómo descargar el dataset
+│   └── telco_churn.csv            # (no incluido — descárgalo de Kaggle)
+├── notebooks/
+│   ├── 1_eda_preprocessing.ipynb  # EDA + decisiones de limpieza
+│   ├── 2_model_training.ipynb     # Pipelines, GridSearchCV, evaluación
+│   └── 3_interpretability.ipynb   # LIME en 3 casos
+├── app/
+│   ├── __init__.py
+│   ├── api.py                     # FastAPI service
+│   ├── schemas.py                 # Pydantic models (input/output)
+│   ├── preprocessing.py           # Lógica compartida train+serving
+│   └── model.joblib               # (se genera al entrenar)
+├── tests/
+│   ├── __init__.py
+│   ├── test_model.py              # Tests del preprocessing y pipeline
+│   └── test_api.py                # Tests de la API con TestClient
+├── train_model.py                 # CLI reproducible de entrenamiento
+├── Dockerfile
+├── .dockerignore
+├── requirements.txt
+├── .github/workflows/ci.yml       # Pipeline GitHub Actions
+├── .gitignore
+└── README.md
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="instalacion">
+<h2>Instalación<a class="headerlink" href="#instalacion" title="Link to this heading">#</a></h2>
+<section id="requisitos">
+<h3>Requisitos<a class="headerlink" href="#requisitos" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Python ≥ 3.10</p></li>
+<li><p>(Opcional) GPU NVIDIA + drivers CUDA para acelerar XGBoost.</p></li>
+<li><p>Docker ≥ 24 (para contenerización).</p></li>
+</ul>
+</section>
+<section id="setup-local">
+<h3>Setup local<a class="headerlink" href="#setup-local" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clonar</span>
+git<span class="w"> </span>clone<span class="w"> </span>&lt;tu-repo&gt;
+<span class="nb">cd</span><span class="w"> </span>telco-churn-mlops
+
+<span class="c1"># Entorno virtual</span>
+python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
+<span class="nb">source</span><span class="w"> </span>.venv/bin/activate<span class="w">          </span><span class="c1"># Linux/Mac</span>
+<span class="c1"># .venv\Scripts\activate           # Windows PowerShell</span>
+
+<span class="c1"># Dependencias</span>
+pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
+pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+
+<span class="c1"># Descargar el dataset (ver data/README.md) y dejarlo en data/telco_churn.csv</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="uso-notebooks">
+<h2>Uso — Notebooks<a class="headerlink" href="#uso-notebooks" title="Link to this heading">#</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>jupyter<span class="w"> </span>lab<span class="w">        </span><span class="c1"># o abre los .ipynb directamente desde VS Code</span>
+</pre></div>
+</div>
+<p>Ejecuta en orden:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">1_eda_preprocessing.ipynb</span></code> — entender los datos.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">2_model_training.ipynb</span></code> — entrenar y persistir <code class="docutils literal notranslate"><span class="pre">app/model.joblib</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">3_interpretability.ipynb</span></code> — explicar predicciones con LIME.</p></li>
+</ol>
+<blockquote>
+<div><p>Si tienes GPU NVIDIA, en el notebook 2 deja <code class="docutils literal notranslate"><span class="pre">USE_GPU</span> <span class="pre">=</span> <span class="pre">True</span></code>. La API moderna de XGBoost ≥ 2.0 usa <code class="docutils literal notranslate"><span class="pre">tree_method='hist'</span></code> + <code class="docutils literal notranslate"><span class="pre">device='cuda'</span></code>. <strong>No uses <code class="docutils literal notranslate"><span class="pre">gpu_hist</span></code></strong>: está deprecado.</p>
+</div></blockquote>
+</section>
+<hr class="docutils" />
+<section id="uso-script-de-entrenamiento">
+<h2>Uso — Script de entrenamiento<a class="headerlink" href="#uso-script-de-entrenamiento" title="Link to this heading">#</a></h2>
+<p>Para reproducir el entrenamiento sin Jupyter (ej. desde CI o un cron):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Entrenamiento completo, todos los modelos, CPU</span>
+python<span class="w"> </span>train_model.py
+
+<span class="c1"># Con GPU para XGBoost</span>
+python<span class="w"> </span>train_model.py<span class="w"> </span>--use-gpu
+
+<span class="c1"># Subset de modelos</span>
+python<span class="w"> </span>train_model.py<span class="w"> </span>--models<span class="w"> </span>xgboost<span class="w"> </span>lightgbm<span class="w"> </span>--use-gpu
+
+<span class="c1"># Modo &quot;quick&quot; para iterar rápido (grid muy reducido)</span>
+python<span class="w"> </span>train_model.py<span class="w"> </span>--quick
+</pre></div>
+</div>
+<p>Outputs:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">app/model.joblib</span></code> — mejor pipeline (preprocesador + modelo) según AUC test.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">app/metrics.json</span></code> — métricas de los 4 modelos para comparación.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="uso-api-local">
+<h2>Uso — API local<a class="headerlink" href="#uso-api-local" title="Link to this heading">#</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Asegúrate de haber generado app/model.joblib antes</span>
+uvicorn<span class="w"> </span>app.api:app<span class="w"> </span>--reload<span class="w"> </span>--port<span class="w"> </span><span class="m">8000</span>
+</pre></div>
+</div>
+<p>Documentación interactiva (Swagger UI): http://localhost:8000/docs</p>
+<section id="endpoints">
+<h3>Endpoints<a class="headerlink" href="#endpoints" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Método</p></th>
+<th class="head"><p>Ruta</p></th>
+<th class="head"><p>Descripción</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>GET</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/</span></code></p></td>
+<td><p>Mensaje de bienvenida.</p></td>
+</tr>
+<tr class="row-odd"><td><p>GET</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/health</span></code></p></td>
+<td><p>Estado del servicio + si el modelo cargó.</p></td>
+</tr>
+<tr class="row-even"><td><p>POST</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/predict</span></code></p></td>
+<td><p>Probabilidad de churn para un cliente.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="ejemplo-curl">
+<h3>Ejemplo <code class="docutils literal notranslate"><span class="pre">curl</span></code><a class="headerlink" href="#ejemplo-curl" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:8000/predict<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">    &quot;gender&quot;: &quot;Female&quot;,</span>
+<span class="s1">    &quot;SeniorCitizen&quot;: 0,</span>
+<span class="s1">    &quot;Partner&quot;: &quot;Yes&quot;,</span>
+<span class="s1">    &quot;Dependents&quot;: &quot;No&quot;,</span>
+<span class="s1">    &quot;tenure&quot;: 1,</span>
+<span class="s1">    &quot;PhoneService&quot;: &quot;No&quot;,</span>
+<span class="s1">    &quot;MultipleLines&quot;: &quot;No phone service&quot;,</span>
+<span class="s1">    &quot;InternetService&quot;: &quot;DSL&quot;,</span>
+<span class="s1">    &quot;OnlineSecurity&quot;: &quot;No&quot;,</span>
+<span class="s1">    &quot;OnlineBackup&quot;: &quot;Yes&quot;,</span>
+<span class="s1">    &quot;DeviceProtection&quot;: &quot;No&quot;,</span>
+<span class="s1">    &quot;TechSupport&quot;: &quot;No&quot;,</span>
+<span class="s1">    &quot;StreamingTV&quot;: &quot;No&quot;,</span>
+<span class="s1">    &quot;StreamingMovies&quot;: &quot;No&quot;,</span>
+<span class="s1">    &quot;Contract&quot;: &quot;Month-to-month&quot;,</span>
+<span class="s1">    &quot;PaperlessBilling&quot;: &quot;Yes&quot;,</span>
+<span class="s1">    &quot;PaymentMethod&quot;: &quot;Electronic check&quot;,</span>
+<span class="s1">    &quot;MonthlyCharges&quot;: 29.85,</span>
+<span class="s1">    &quot;TotalCharges&quot;: 29.85</span>
+<span class="s1">  }&#39;</span>
+</pre></div>
+</div>
+<p>Respuesta:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;churn_probability&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.6231</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;prediction&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Yes&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;model_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;xgboost&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="uso-docker">
+<h2>Uso — Docker<a class="headerlink" href="#uso-docker" title="Link to this heading">#</a></h2>
+<section id="build">
+<h3>Build<a class="headerlink" href="#build" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>telco-churn-api<span class="w"> </span>.
+</pre></div>
+</div>
+<blockquote>
+<div><p>⚠️ Antes de construir la imagen, debes haber entrenado el modelo (<code class="docutils literal notranslate"><span class="pre">app/model.joblib</span></code> debe existir): el <code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code> lo copia tal cual. Esto es deliberado — separa entrenamiento (con GPU, en tu host) de serving (CPU, en el contenedor).</p>
+</div></blockquote>
+</section>
+<section id="ejecucion-modo-persistente">
+<h3>Ejecución (modo persistente)<a class="headerlink" href="#ejecucion-modo-persistente" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Crear contenedor con nombre fijo (solo la primera vez)</span>
+docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>telco-churn-container<span class="w"> </span>-p<span class="w"> </span><span class="m">8000</span>:8000<span class="w"> </span>telco-churn-api
+
+<span class="c1"># Después puedes pararlo / arrancarlo</span>
+docker<span class="w"> </span>stop<span class="w">  </span>telco-churn-container
+docker<span class="w"> </span>start<span class="w"> </span>telco-churn-container
+
+<span class="c1"># Logs</span>
+docker<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>telco-churn-container
+
+<span class="c1"># Probar</span>
+curl<span class="w"> </span>http://localhost:8000/health
+</pre></div>
+</div>
+</section>
+<section id="persistencia-y-volumenes">
+<h3>Persistencia y volúmenes<a class="headerlink" href="#persistencia-y-volumenes" title="Link to this heading">#</a></h3>
+<p>Si quisieras montar un modelo entrenado externamente (sin reconstruir la imagen):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>telco-churn-container<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-p<span class="w"> </span><span class="m">8000</span>:8000<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/app/model.joblib:/app/app/model.joblib:ro<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">MODEL_PATH</span><span class="o">=</span>/app/app/model.joblib<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>telco-churn-api
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="tests">
+<h2>Tests<a class="headerlink" href="#tests" title="Link to this heading">#</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Desde la raíz del proyecto</span>
+pytest<span class="w"> </span>tests/<span class="w"> </span>-v
+</pre></div>
+</div>
+<p>Cubren:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">tests/test_model.py</span></code>: <code class="docutils literal notranslate"><span class="pre">build_feature_frame</span></code>, manejo de <code class="docutils literal notranslate"><span class="pre">TotalCharges</span></code> con espacios, fit + predict_proba del pipeline, roundtrip de joblib.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tests/test_api.py</span></code>: endpoints <code class="docutils literal notranslate"><span class="pre">/</span></code>, <code class="docutils literal notranslate"><span class="pre">/health</span></code>, <code class="docutils literal notranslate"><span class="pre">/predict</span></code> con <code class="docutils literal notranslate"><span class="pre">TestClient</span></code>. Validación Pydantic (categorías inválidas, campos faltantes, tenure negativo).</p></li>
+</ul>
+<p>Los tests <strong>no requieren el dataset real</strong>: entrenan un modelo dummy en memoria con datos sintéticos.</p>
+</section>
+<hr class="docutils" />
+<section id="ci-cd">
+<h2>CI/CD<a class="headerlink" href="#ci-cd" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">.github/workflows/ci.yml</span></code> define un pipeline que se dispara en cada push y pull request a <code class="docutils literal notranslate"><span class="pre">main</span></code>:</p>
+<ol class="arabic simple">
+<li><p><strong>Lint</strong> con flake8 (configuración relajada en E501/W503).</p></li>
+<li><p><strong>Tests</strong> con pytest.</p></li>
+<li><p><strong>Build Docker</strong> (sin push) si los tests pasan y estamos en <code class="docutils literal notranslate"><span class="pre">main</span></code>.</p></li>
+</ol>
+<p>Para publicar la imagen a Docker Hub, descomenta el job <code class="docutils literal notranslate"><span class="pre">publish</span></code> y configura los secrets <code class="docutils literal notranslate"><span class="pre">DOCKERHUB_USERNAME</span></code> y <code class="docutils literal notranslate"><span class="pre">DOCKERHUB_TOKEN</span></code>.</p>
+</section>
+<hr class="docutils" />
+<section id="recomendaciones-de-mlops">
+<h2>Recomendaciones de MLOps<a class="headerlink" href="#recomendaciones-de-mlops" title="Link to this heading">#</a></h2>
+<p>Lo que está incluido es un MVP. Para un sistema productivo de verdad, los siguientes pasos son razonables:</p>
+<section id="monitoreo-en-produccion">
+<h3>1. Monitoreo en producción<a class="headerlink" href="#monitoreo-en-produccion" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Logging estructurado</strong> de cada predicción (input, output, latencia, modelo) → Elastic / Datadog / Cloudwatch.</p></li>
+<li><p><strong>Métricas Prometheus</strong> vía <code class="docutils literal notranslate"><span class="pre">prometheus-fastapi-instrumentator</span></code>: requests/seg, latencia P95, error rate.</p></li>
+<li><p><strong>Alertas</strong> sobre tasas de error, latencia, o caídas del <code class="docutils literal notranslate"><span class="pre">/health</span></code>.</p></li>
+</ul>
+</section>
+<section id="deteccion-de-deriva-drift">
+<h3>2. Detección de deriva (drift)<a class="headerlink" href="#deteccion-de-deriva-drift" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Data drift</strong>: monitorear distribuciones de las features de input vs. distribución de entrenamiento. Herramientas: <code class="docutils literal notranslate"><span class="pre">evidently</span></code>, <code class="docutils literal notranslate"><span class="pre">whylogs</span></code>, <code class="docutils literal notranslate"><span class="pre">nannyml</span></code>.</p></li>
+<li><p><strong>Concept drift</strong>: cuando se conoce el outcome (churn real a los X meses), comparar predicciones vs. realidad. Si el AUC en producción baja &gt; 5% del baseline, disparar reentrenamiento.</p></li>
+</ul>
+</section>
+<section id="reentrenamiento-programado">
+<h3>3. Reentrenamiento programado<a class="headerlink" href="#reentrenamiento-programado" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Cron job o Airflow DAG que:</p>
+<ol class="arabic simple">
+<li><p>Extrae datos frescos del data warehouse.</p></li>
+<li><p>Ejecuta <code class="docutils literal notranslate"><span class="pre">train_model.py</span></code>.</p></li>
+<li><p>Compara métricas vs. modelo en producción.</p></li>
+<li><p>Si mejora, despliega; si no, alerta y mantiene el actual.</p></li>
+</ol>
+</li>
+<li><p><strong>Champion/Challenger</strong>: mantener dos modelos en paralelo, enrutando 5–10% del tráfico al challenger.</p></li>
+</ul>
+</section>
+<section id="despliegue-en-la-nube">
+<h3>4. Despliegue en la nube<a class="headerlink" href="#despliegue-en-la-nube" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Opción simple</strong>: AWS App Runner, Google Cloud Run, Azure Container Apps — toman tu imagen Docker y la escalan automáticamente. Coste bajo, latencia decente.</p></li>
+<li><p><strong>Opción robusta</strong>: EKS/GKE/AKS con HPA (Horizontal Pod Autoscaler) sobre métricas de CPU o requests/seg. Configura readinessProbe apuntando a <code class="docutils literal notranslate"><span class="pre">/health</span></code>.</p></li>
+<li><p><strong>Opción serverless</strong>: AWS Lambda con contenedores (límite de tamaño 10 GB) para tráfico esporádico — paga solo por inferencia.</p></li>
+</ul>
+</section>
+<section id="versionado-y-registry">
+<h3>5. Versionado y registry<a class="headerlink" href="#versionado-y-registry" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>MLflow Tracking</strong> para registrar cada experimento (hiperparámetros, métricas, artefactos).</p></li>
+<li><p><strong>MLflow Model Registry</strong> para versionar <code class="docutils literal notranslate"><span class="pre">model.joblib</span></code> con etapas <code class="docutils literal notranslate"><span class="pre">Staging</span> <span class="pre">→</span> <span class="pre">Production</span> <span class="pre">→</span> <span class="pre">Archived</span></code>.</p></li>
+<li><p><strong>DVC</strong> para versionar el dataset junto con el código.</p></li>
+</ul>
+</section>
+<section id="escalabilidad">
+<h3>6. Escalabilidad<a class="headerlink" href="#escalabilidad" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Para latencias &lt; 50ms y tráfico alto, considera serializar el pipeline a <strong>ONNX</strong> y servirlo con Triton Inference Server o ONNX Runtime — ganancias de 2–10× en latencia.</p></li>
+<li><p>Inferencia por lotes (batch endpoints) para reportes diarios, en vez de llamadas individuales.</p></li>
+</ul>
+</section>
+<section id="seguridad">
+<h3>7. Seguridad<a class="headerlink" href="#seguridad" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>API behind un API Gateway con autenticación (API key, OAuth2).</p></li>
+<li><p>Rate limiting por cliente.</p></li>
+<li><p>HTTPS obligatorio en producción.</p></li>
+<li><p>Secrets (DB credentials, API keys) en un secret manager, nunca en imágenes Docker.</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="licencia-y-referencias">
+<h2>Licencia y referencias<a class="headerlink" href="#licencia-y-referencias" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Dataset: <a class="reference external" href="https://www.kaggle.com/datasets/blastchar/telco-customer-churn">Telco Customer Churn (Kaggle, BlastChar)</a>.</p></li>
+<li><p>Bibliografía base: capítulo «Random Forest y XGBoost» de Lihki Rubio.</p></li>
+</ul>
+<blockquote>
+<div><p>⚠️ Este proyecto es educativo. Los modelos y umbrales no están calibrados para uso comercial real sin validación adicional, calibración de probabilidades y pruebas A/B.</p>
+</div></blockquote>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./zip_contents\telco-churn-mlops"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenido
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tabla-de-contenidos">Tabla de contenidos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descripcion">Descripción</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arquitectura">Arquitectura</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estructura-del-repositorio">Estructura del repositorio</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion">Instalación</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#requisitos">Requisitos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-local">Setup local</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#uso-notebooks">Uso — Notebooks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#uso-script-de-entrenamiento">Uso — Script de entrenamiento</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#uso-api-local">Uso — API local</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#endpoints">Endpoints</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-curl">Ejemplo <code class="docutils literal notranslate"><span class="pre">curl</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#uso-docker">Uso — Docker</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build">Build</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejecucion-modo-persistente">Ejecución (modo persistente)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#persistencia-y-volumenes">Persistencia y volúmenes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tests">Tests</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ci-cd">CI/CD</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recomendaciones-de-mlops">Recomendaciones de MLOps</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#monitoreo-en-produccion">1. Monitoreo en producción</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deteccion-de-deriva-drift">2. Detección de deriva (drift)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reentrenamiento-programado">3. Reentrenamiento programado</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#despliegue-en-la-nube">4. Despliegue en la nube</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#versionado-y-registry">5. Versionado y registry</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#escalabilidad">6. Escalabilidad</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#seguridad">7. Seguridad</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#licencia-y-referencias">Licencia y referencias</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Por JuanesGarciaGomez
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
