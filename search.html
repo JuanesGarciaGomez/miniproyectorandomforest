@@ -30,7 +30,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -171,13 +171,13 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="notebooks/1_eda_preprocessing.html">
-                    1. EDA y Preprocesamiento — Telco Customer ChurnEste notebook hace el análisis exploratorio del dataset y deja documentadas las decisiones de limpieza que luego usará el módulo app/preprocessing.py durante el entrenamiento.Objetivo: entender la estructura de los datos, detectar problemas (valores faltantes, tipos incorrectos, desbalance de clases) y proponer un esquema de preprocesamiento robusto.> ⚠️ El dataset no se incluye en el repo. Sigue las instrucciones de data/README.md para descargarlo.
+                    1. EDA y Preprocesamiento — Telco Customer Churn
                 </a>
             </li>
         </ul>
         <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="notebooks/2_model_training.html">2. Entrenamiento y evaluación de modelos</a></li>
-<li class="toctree-l1"><a class="reference internal" href="notebooks/3_interpretability.html">3. Interpretabilidad con LIMELos modelos de árboles dan importancias <strong>globales</strong> (qué features usa el modelo en general), pero no explican una predicción <strong>individual</strong>: ¿por qué este cliente concreto recibió 0.87 de probabilidad de churn?LIME (Local Interpretable Model-agnostic Explanations) responde esa pregunta entrenando un modelo lineal simple alrededor de la observación de interés, perturbando ligeramente sus features y viendo cómo cambia la predicción. El resultado es una lista de features con su contribución (positiva o negativa) a esa predicción específica.<strong>Aplicaremos LIME a 3 casos representativos</strong>:1. Un cliente con alta probabilidad de churn (verdadero positivo).2. Un cliente fiel que el modelo identifica correctamente como retenido.3. Un caso en la frontera (probabilidad cercana a 0.5).</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/3_interpretability.html">3. Interpretabilidad con LIME</a></li>
 </ul>
 
     </div>
