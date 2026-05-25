@@ -1,0 +1,5 @@
+format: jb-book
+root: notebooks/1_eda_preprocessing
+chapters:
+  - file: notebooks/2_model_training
+  - file: notebooks/3_interpretability

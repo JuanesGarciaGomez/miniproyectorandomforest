@@ -1,63 +1,55 @@
 from contextlib import asynccontextmanager
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
-import joblib
-import numpy as np
 import os
 
-model = None
+import joblib
+from fastapi import FastAPI, HTTPException
+
+from app.schemas import CustomerData, HealthResponse, PredictionResponse
+from app.preprocessing import build_feature_frame
+
+_artifact = {}
 
 
 @asynccontextmanager
 async def lifespan(application: FastAPI):
-    global model
     model_path = os.getenv("MODEL_PATH", "app/model.joblib")
     try:
-        model = joblib.load(model_path)
+        _artifact.update(joblib.load(model_path))
     except Exception:
-        model = None
+        pass
     yield
+    _artifact.clear()
 
 
-app = FastAPI(lifespan=lifespan)
+app = FastAPI(
+    title="Telco Churn Predictor",
+    description="API de inferencia para predecir churn de clientes Telco.",
+    version="2.0.0",
+    lifespan=lifespan,
+)
 
 
-class CustomerData(BaseModel):
-    SeniorCitizen: int
-    MonthlyCharges: float
-    TotalCharges: float
-    Contract: str
-    PaymentMethod: str
+@app.get("/health", response_model=HealthResponse)
+def health():
+    loaded = "model" in _artifact
+    return HealthResponse(
+        status="ok" if loaded else "error",
+        model_loaded=loaded,
+        model_name=_artifact.get("name") if loaded else None,
+    )
 
 
-@app.post("/predict")
+@app.post("/predict", response_model=PredictionResponse)
 def predict(data: CustomerData):
-    if model is None:
+    if "model" not in _artifact:
         raise HTTPException(status_code=503, detail="Modelo no disponible")
 
-    contract_map = {
-        "Month-to-month": 0,
-        "One year": 1,
-        "Two year": 2,
-    }
-    payment_map = {
-        "Electronic check": 0,
-        "Mailed check": 1,
-        "Bank transfer (automatic)": 2,
-        "Credit card (automatic)": 3,
-    }
+    pipeline = _artifact["model"]
+    X = build_feature_frame(data.model_dump())
+    proba = float(pipeline.predict_proba(X)[0][1])
 
-    features = np.array([[
-        data.SeniorCitizen,
-        data.MonthlyCharges,
-        data.TotalCharges,
-        contract_map.get(data.Contract, 0),
-        payment_map.get(data.PaymentMethod, 0),
-    ]])
-
-    churn_proba = float(model.predict_proba(features)[0][1])
-
-    return {
-        "churn_probability": round(churn_proba, 2),
-        "prediction": "Yes" if churn_proba > 0.5 else "No",
-    }
+    return PredictionResponse(
+        churn_probability=round(proba, 4),
+        prediction="Yes" if proba > 0.5 else "No",
+        model_name=_artifact["name"],
+    )

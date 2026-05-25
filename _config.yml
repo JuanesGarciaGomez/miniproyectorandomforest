@@ -1,0 +1,26 @@
+title: "Predictor de Churn Telco — MLOps"
+author: "JuanesGarciaGomez"
+logo: ""
+
+execute:
+  execute_notebooks: "off"
+
+parse:
+  myst_enable_extensions:
+    - colon_fence
+    - dollarmath
+
+html:
+  use_issues_button: false
+  use_repository_button: true
+  theme:
+    default: dark
+
+repository:
+  url: https://github.com/JuanesGarciaGomez/miniproyectorandomforest
+  branch: main
+  path_to_book: ""
+
+sphinx:
+  config:
+    language: es
