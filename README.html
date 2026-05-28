@@ -1,12 +1,13 @@
 
+
 <!DOCTYPE html>
 
 
-<html lang="es" data-content_root="./" >
+<html lang="es" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Telco Customer Churn — Mini Proyecto Random Forest &#8212; Predictor de Churn Telco — MLOps</title>
   
@@ -28,36 +29,40 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="_static/documentation_options.js?v=78d55cf8"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="_static/copybutton.js?v=f281be69"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Haz clic para mostrar';</script>
     <script>let toggleHintHide = 'Haz clic para ocultar';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js?v=b8b12719"></script>
-    <script src="_static/translations.js?v=d190bf04"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/translations.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js?v=f930bc37"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'README';</script>
     <link rel="index" title="Índice" href="genindex.html" />
     <link rel="search" title="Búsqueda" href="search.html" />
@@ -153,18 +158,7 @@
     <p class="title logo__title">Predictor de Churn Telco — MLOps</p>
   
 </a></div>
-        <div class="sidebar-primary-item">
-
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Búsqueda</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
-        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -206,9 +200,9 @@
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</button></div>
+</label></div>
       
     </div>
   
@@ -317,9 +311,9 @@ document.write(`
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</button>
+</label>
 </div></div>
       
     </div>
@@ -382,25 +376,25 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="telco-customer-churn-mini-proyecto-random-forest">
-<h1>Telco Customer Churn — Mini Proyecto Random Forest<a class="headerlink" href="#telco-customer-churn-mini-proyecto-random-forest" title="Link to this heading">#</a></h1>
+<h1>Telco Customer Churn — Mini Proyecto Random Forest<a class="headerlink" href="#telco-customer-churn-mini-proyecto-random-forest" title="Permalink to this heading">#</a></h1>
 <p>Predicción de abandono (churn) de clientes en una empresa de telecomunicaciones usando Random Forest, servido como API REST con FastAPI, contenerizado con Docker y con integración continua mediante GitHub Actions.</p>
 <hr class="docutils" />
 <section id="tabla-de-contenidos">
-<h2>Tabla de contenidos<a class="headerlink" href="#tabla-de-contenidos" title="Link to this heading">#</a></h2>
+<h2>Tabla de contenidos<a class="headerlink" href="#tabla-de-contenidos" title="Permalink to this heading">#</a></h2>
 <ol class="arabic simple">
-<li><p><a class="reference internal" href="#descripci%C3%B3n"><span class="xref myst">Descripción</span></a></p></li>
-<li><p><a class="reference internal" href="#estructura-del-repositorio"><span class="xref myst">Estructura del repositorio</span></a></p></li>
-<li><p><a class="reference internal" href="#instalaci%C3%B3n"><span class="xref myst">Instalación</span></a></p></li>
-<li><p><a class="reference internal" href="#uso--api-local"><span class="xref myst">Uso — API local</span></a></p></li>
-<li><p><a class="reference internal" href="#uso--docker"><span class="xref myst">Uso — Docker</span></a></p></li>
-<li><p><a class="reference internal" href="#tests"><span class="xref myst">Tests</span></a></p></li>
-<li><p><a class="reference internal" href="#cicd-pipeline"><span class="xref myst">CI/CD Pipeline</span></a></p></li>
-<li><p><a class="reference internal" href="#flujo-del-pipeline-de-ci"><span class="xref myst">Flujo del Pipeline de CI</span></a></p></li>
+<li><p><span class="xref myst">Descripción</span></p></li>
+<li><p><span class="xref myst">Estructura del repositorio</span></p></li>
+<li><p><span class="xref myst">Instalación</span></p></li>
+<li><p><span class="xref myst">Uso — API local</span></p></li>
+<li><p><span class="xref myst">Uso — Docker</span></p></li>
+<li><p><span class="xref myst">Tests</span></p></li>
+<li><p><span class="xref myst">CI/CD Pipeline</span></p></li>
+<li><p><span class="xref myst">Flujo del Pipeline de CI</span></p></li>
 </ol>
 </section>
 <hr class="docutils" />
 <section id="descripcion">
-<h2>Descripción<a class="headerlink" href="#descripcion" title="Link to this heading">#</a></h2>
+<h2>Descripción<a class="headerlink" href="#descripcion" title="Permalink to this heading">#</a></h2>
 <p>El dataset <strong>Telco Customer Churn</strong> contiene información de clientes de una empresa de telecomunicaciones con la etiqueta <code class="docutils literal notranslate"><span class="pre">Churn</span></code> (Yes/No). Este proyecto implementa:</p>
 <ul class="simple">
 <li><p><strong>Análisis exploratorio</strong> y preprocesamiento (notebook 1).</p></li>
@@ -413,7 +407,7 @@ document.write(`
 </section>
 <hr class="docutils" />
 <section id="estructura-del-repositorio">
-<h2>Estructura del repositorio<a class="headerlink" href="#estructura-del-repositorio" title="Link to this heading">#</a></h2>
+<h2>Estructura del repositorio<a class="headerlink" href="#estructura-del-repositorio" title="Permalink to this heading">#</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>miniproyectorandomforest/
 ├── app/
 │   ├── __init__.py
@@ -442,16 +436,16 @@ document.write(`
 </section>
 <hr class="docutils" />
 <section id="instalacion">
-<h2>Instalación<a class="headerlink" href="#instalacion" title="Link to this heading">#</a></h2>
+<h2>Instalación<a class="headerlink" href="#instalacion" title="Permalink to this heading">#</a></h2>
 <section id="requisitos">
-<h3>Requisitos<a class="headerlink" href="#requisitos" title="Link to this heading">#</a></h3>
+<h3>Requisitos<a class="headerlink" href="#requisitos" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Python 3.10+</p></li>
 <li><p>Docker (para contenerización)</p></li>
 </ul>
 </section>
 <section id="setup-local">
-<h3>Setup local<a class="headerlink" href="#setup-local" title="Link to this heading">#</a></h3>
+<h3>Setup local<a class="headerlink" href="#setup-local" title="Permalink to this heading">#</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clonar el repositorio</span>
 git<span class="w"> </span>clone<span class="w"> </span>https://github.com/JuanesGarciaGomez/miniproyectorandomforest
 <span class="nb">cd</span><span class="w"> </span>miniproyectorandomforest
@@ -469,19 +463,19 @@ pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </s
 </section>
 <hr class="docutils" />
 <section id="uso-api-local">
-<h2>Uso — API local<a class="headerlink" href="#uso-api-local" title="Link to this heading">#</a></h2>
+<h2>Uso — API local<a class="headerlink" href="#uso-api-local" title="Permalink to this heading">#</a></h2>
 <section id="paso-1-entrenar-el-modelo">
-<h3>Paso 1: Entrenar el modelo<a class="headerlink" href="#paso-1-entrenar-el-modelo" title="Link to this heading">#</a></h3>
+<h3>Paso 1: Entrenar el modelo<a class="headerlink" href="#paso-1-entrenar-el-modelo" title="Permalink to this heading">#</a></h3>
 <p>Ejecuta el notebook <code class="docutils literal notranslate"><span class="pre">notebooks/2_model_training.ipynb</span></code> para generar <code class="docutils literal notranslate"><span class="pre">app/model.joblib</span></code>.</p>
 </section>
 <section id="paso-2-levantar-el-servidor">
-<h3>Paso 2: Levantar el servidor<a class="headerlink" href="#paso-2-levantar-el-servidor" title="Link to this heading">#</a></h3>
+<h3>Paso 2: Levantar el servidor<a class="headerlink" href="#paso-2-levantar-el-servidor" title="Permalink to this heading">#</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uvicorn<span class="w"> </span>app.api:app<span class="w"> </span>--port<span class="w"> </span><span class="m">8001</span>
 </pre></div>
 </div>
 </section>
 <section id="paso-3-hacer-una-prediccion">
-<h3>Paso 3: Hacer una predicción<a class="headerlink" href="#paso-3-hacer-una-prediccion" title="Link to this heading">#</a></h3>
+<h3>Paso 3: Hacer una predicción<a class="headerlink" href="#paso-3-hacer-una-prediccion" title="Permalink to this heading">#</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:8001/predict<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;SeniorCitizen&quot;: 1, &quot;MonthlyCharges&quot;: 99.9, &quot;TotalCharges&quot;: 499.5, &quot;Contract&quot;: &quot;Month-to-month&quot;, &quot;PaymentMethod&quot;: &quot;Bank transfer (automatic)&quot;}&#39;</span>
@@ -493,7 +487,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </s
 </div>
 </section>
 <section id="esquema-de-entrada-customerdata">
-<h3>Esquema de entrada (<code class="docutils literal notranslate"><span class="pre">CustomerData</span></code>)<a class="headerlink" href="#esquema-de-entrada-customerdata" title="Link to this heading">#</a></h3>
+<h3>Esquema de entrada (<code class="docutils literal notranslate"><span class="pre">CustomerData</span></code>)<a class="headerlink" href="#esquema-de-entrada-customerdata" title="Permalink to this heading">#</a></h3>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Campo</p></th>
@@ -527,7 +521,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </s
 </div>
 </section>
 <section id="esquema-de-salida">
-<h3>Esquema de salida<a class="headerlink" href="#esquema-de-salida" title="Link to this heading">#</a></h3>
+<h3>Esquema de salida<a class="headerlink" href="#esquema-de-salida" title="Permalink to this heading">#</a></h3>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Campo</p></th>
@@ -551,9 +545,9 @@ pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </s
 </section>
 <hr class="docutils" />
 <section id="uso-docker">
-<h2>Uso — Docker<a class="headerlink" href="#uso-docker" title="Link to this heading">#</a></h2>
+<h2>Uso — Docker<a class="headerlink" href="#uso-docker" title="Permalink to this heading">#</a></h2>
 <section id="construir-y-ejecutar-primera-vez">
-<h3>Construir y ejecutar (primera vez)<a class="headerlink" href="#construir-y-ejecutar-primera-vez" title="Link to this heading">#</a></h3>
+<h3>Construir y ejecutar (primera vez)<a class="headerlink" href="#construir-y-ejecutar-primera-vez" title="Permalink to this heading">#</a></h3>
 <blockquote>
 <div><p>Asegúrate de tener <code class="docutils literal notranslate"><span class="pre">app/model.joblib</span></code> antes de construir la imagen.</p>
 </div></blockquote>
@@ -562,7 +556,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </s
 </div>
 </section>
 <section id="gestionar-el-contenedor">
-<h3>Gestionar el contenedor<a class="headerlink" href="#gestionar-el-contenedor" title="Link to this heading">#</a></h3>
+<h3>Gestionar el contenedor<a class="headerlink" href="#gestionar-el-contenedor" title="Permalink to this heading">#</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Iniciar</span>
 docker<span class="w"> </span>start<span class="w"> </span>telco-churn-container
 
@@ -575,7 +569,7 @@ docker<span class="w"> </span>ps<span class="w"> </span>-a<span class="w"> </spa
 </div>
 </section>
 <section id="probar-desde-docker">
-<h3>Probar desde Docker<a class="headerlink" href="#probar-desde-docker" title="Link to this heading">#</a></h3>
+<h3>Probar desde Docker<a class="headerlink" href="#probar-desde-docker" title="Permalink to this heading">#</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:8000/predict<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;SeniorCitizen&quot;: 1, &quot;MonthlyCharges&quot;: 99.9, &quot;TotalCharges&quot;: 499.5, &quot;Contract&quot;: &quot;Month-to-month&quot;, &quot;PaymentMethod&quot;: &quot;Bank transfer (automatic)&quot;}&#39;</span>
@@ -589,7 +583,7 @@ docker<span class="w"> </span>ps<span class="w"> </span>-a<span class="w"> </spa
 </section>
 <hr class="docutils" />
 <section id="tests">
-<h2>Tests<a class="headerlink" href="#tests" title="Link to this heading">#</a></h2>
+<h2>Tests<a class="headerlink" href="#tests" title="Permalink to this heading">#</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest<span class="w"> </span>tests/<span class="w"> </span>-v
 </pre></div>
 </div>
@@ -597,11 +591,11 @@ docker<span class="w"> </span>ps<span class="w"> </span>-a<span class="w"> </spa
 </section>
 <hr class="docutils" />
 <section id="ci-cd-pipeline">
-<h2>CI/CD Pipeline<a class="headerlink" href="#ci-cd-pipeline" title="Link to this heading">#</a></h2>
+<h2>CI/CD Pipeline<a class="headerlink" href="#ci-cd-pipeline" title="Permalink to this heading">#</a></h2>
 <p>El archivo <code class="docutils literal notranslate"><span class="pre">.github/workflows/ci.yml</span></code> define el pipeline de integración continua.</p>
 <p><strong>Se ejecuta automáticamente</strong> en cada <code class="docutils literal notranslate"><span class="pre">push</span></code> o <code class="docutils literal notranslate"><span class="pre">pull</span> <span class="pre">request</span></code> al repositorio.</p>
 <section id="pasos-del-pipeline">
-<h3>Pasos del pipeline<a class="headerlink" href="#pasos-del-pipeline" title="Link to this heading">#</a></h3>
+<h3>Pasos del pipeline<a class="headerlink" href="#pasos-del-pipeline" title="Permalink to this heading">#</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Push / Pull Request
         │
         ▼
@@ -633,7 +627,7 @@ docker<span class="w"> </span>ps<span class="w"> </span>-a<span class="w"> </spa
 </div>
 </section>
 <section id="como-ver-los-resultados">
-<h3>Cómo ver los resultados<a class="headerlink" href="#como-ver-los-resultados" title="Link to this heading">#</a></h3>
+<h3>Cómo ver los resultados<a class="headerlink" href="#como-ver-los-resultados" title="Permalink to this heading">#</a></h3>
 <ol class="arabic simple">
 <li><p>Ve a tu repositorio en GitHub.</p></li>
 <li><p>Haz clic en la pestaña <strong>Actions</strong>.</p></li>
@@ -644,7 +638,7 @@ docker<span class="w"> </span>ps<span class="w"> </span>-a<span class="w"> </spa
 </section>
 <hr class="docutils" />
 <section id="flujo-del-pipeline-de-integracion-continua-ci">
-<h2>Flujo del Pipeline de Integración Continua (CI)<a class="headerlink" href="#flujo-del-pipeline-de-integracion-continua-ci" title="Link to this heading">#</a></h2>
+<h2>Flujo del Pipeline de Integración Continua (CI)<a class="headerlink" href="#flujo-del-pipeline-de-integracion-continua-ci" title="Permalink to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Paso</p></th>
@@ -683,7 +677,7 @@ docker<span class="w"> </span>ps<span class="w"> </span>-a<span class="w"> </spa
 </section>
 <hr class="docutils" />
 <section id="dataset">
-<h2>Dataset<a class="headerlink" href="#dataset" title="Link to this heading">#</a></h2>
+<h2>Dataset<a class="headerlink" href="#dataset" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p><strong>Fuente</strong>: <a class="reference external" href="https://www.kaggle.com/datasets/blastchar/telco-customer-churn">Telco Customer Churn — Kaggle (BlastChar)</a></p></li>
 <li><p><strong>Filas</strong>: ~7 043 clientes</p></li>
@@ -793,7 +787,7 @@ Por JuanesGarciaGomez
 
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright 2022.
       <br/>
     
   </p>

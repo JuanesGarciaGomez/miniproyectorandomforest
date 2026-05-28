@@ -1,12 +1,13 @@
 
+
 <!DOCTYPE html>
 
 
-<html lang="es" data-content_root="../../" >
+<html lang="es" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Telco Customer Churn — Proyecto MLOps &#8212; Predictor de Churn Telco — MLOps</title>
   
@@ -28,36 +29,40 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
-    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be" />
-    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../_static/documentation_options.js?v=78d55cf8"></script>
-    <script src="../../_static/doctools.js?v=9a2dae69"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../../_static/copybutton.js?v=f281be69"></script>
-    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Haz clic para mostrar';</script>
     <script>let toggleHintHide = 'Haz clic para ocultar';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../../_static/togglebutton.js?v=b8b12719"></script>
-    <script src="../../_static/translations.js?v=d190bf04"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/translations.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'zip_contents/telco-churn-mlops/README';</script>
     <link rel="index" title="Índice" href="../../genindex.html" />
     <link rel="search" title="Búsqueda" href="../../search.html" />
@@ -153,18 +158,7 @@
     <p class="title logo__title">Predictor de Churn Telco — MLOps</p>
   
 </a></div>
-        <div class="sidebar-primary-item">
-
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Búsqueda</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
-        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -206,9 +200,9 @@
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</button></div>
+</label></div>
       
     </div>
   
@@ -317,9 +311,9 @@ document.write(`
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</button>
+</label>
 </div></div>
       
     </div>
@@ -387,28 +381,28 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="telco-customer-churn-proyecto-mlops">
-<h1>Telco Customer Churn — Proyecto MLOps<a class="headerlink" href="#telco-customer-churn-proyecto-mlops" title="Link to this heading">#</a></h1>
+<h1>Telco Customer Churn — Proyecto MLOps<a class="headerlink" href="#telco-customer-churn-proyecto-mlops" title="Permalink to this heading">#</a></h1>
 <p>Predicción de abandono (churn) de clientes en una empresa de telecomunicaciones, usando árboles de decisión ensamblados (Random Forest, XGBoost, CatBoost, LightGBM), interpretabilidad con LIME, y un servicio de inferencia FastAPI desplegable con Docker y CI/CD en GitHub Actions.</p>
 <hr class="docutils" />
 <section id="tabla-de-contenidos">
-<h2>Tabla de contenidos<a class="headerlink" href="#tabla-de-contenidos" title="Link to this heading">#</a></h2>
+<h2>Tabla de contenidos<a class="headerlink" href="#tabla-de-contenidos" title="Permalink to this heading">#</a></h2>
 <ol class="arabic simple">
-<li><p><a class="reference internal" href="#descripci%C3%B3n"><span class="xref myst">Descripción</span></a></p></li>
-<li><p><a class="reference internal" href="#arquitectura"><span class="xref myst">Arquitectura</span></a></p></li>
-<li><p><a class="reference internal" href="#estructura-del-repositorio"><span class="xref myst">Estructura del repositorio</span></a></p></li>
-<li><p><a class="reference internal" href="#instalaci%C3%B3n"><span class="xref myst">Instalación</span></a></p></li>
-<li><p><a class="reference internal" href="#uso--notebooks"><span class="xref myst">Uso — Notebooks</span></a></p></li>
-<li><p><a class="reference internal" href="#uso--script-de-entrenamiento"><span class="xref myst">Uso — Script de entrenamiento</span></a></p></li>
-<li><p><a class="reference internal" href="#uso--api-local"><span class="xref myst">Uso — API local</span></a></p></li>
-<li><p><a class="reference internal" href="#uso--docker"><span class="xref myst">Uso — Docker</span></a></p></li>
-<li><p><a class="reference internal" href="#tests"><span class="xref myst">Tests</span></a></p></li>
-<li><p><a class="reference internal" href="#cicd"><span class="xref myst">CI/CD</span></a></p></li>
-<li><p><a class="reference internal" href="#recomendaciones-de-mlops"><span class="xref myst">Recomendaciones de MLOps</span></a></p></li>
+<li><p><span class="xref myst">Descripción</span></p></li>
+<li><p><span class="xref myst">Arquitectura</span></p></li>
+<li><p><span class="xref myst">Estructura del repositorio</span></p></li>
+<li><p><span class="xref myst">Instalación</span></p></li>
+<li><p><span class="xref myst">Uso — Notebooks</span></p></li>
+<li><p><span class="xref myst">Uso — Script de entrenamiento</span></p></li>
+<li><p><span class="xref myst">Uso — API local</span></p></li>
+<li><p><span class="xref myst">Uso — Docker</span></p></li>
+<li><p><span class="xref myst">Tests</span></p></li>
+<li><p><span class="xref myst">CI/CD</span></p></li>
+<li><p><span class="xref myst">Recomendaciones de MLOps</span></p></li>
 </ol>
 </section>
 <hr class="docutils" />
 <section id="descripcion">
-<h2>Descripción<a class="headerlink" href="#descripcion" title="Link to this heading">#</a></h2>
+<h2>Descripción<a class="headerlink" href="#descripcion" title="Permalink to this heading">#</a></h2>
 <p>El dataset <strong>Telco Customer Churn</strong> (Kaggle, ~7043 filas) contiene información demográfica, de servicios contratados y facturación de clientes, junto con la etiqueta <code class="docutils literal notranslate"><span class="pre">Churn</span></code> (Yes/No). El churn ronda el 27%, así que es un problema de <strong>clasificación binaria con desbalance moderado</strong>.</p>
 <p>El proyecto cubre:</p>
 <ul class="simple">
@@ -423,7 +417,7 @@ document.write(`
 </section>
 <hr class="docutils" />
 <section id="arquitectura">
-<h2>Arquitectura<a class="headerlink" href="#arquitectura" title="Link to this heading">#</a></h2>
+<h2>Arquitectura<a class="headerlink" href="#arquitectura" title="Permalink to this heading">#</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>                                     ┌──────────────────────────┐
                                      │    notebooks/2_model     │
    data/telco_churn.csv  ─────────►  │    train_model.py        │
@@ -447,7 +441,7 @@ document.write(`
 </section>
 <hr class="docutils" />
 <section id="estructura-del-repositorio">
-<h2>Estructura del repositorio<a class="headerlink" href="#estructura-del-repositorio" title="Link to this heading">#</a></h2>
+<h2>Estructura del repositorio<a class="headerlink" href="#estructura-del-repositorio" title="Permalink to this heading">#</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>telco-churn-mlops/
 ├── data/
 │   ├── README.md                  # Cómo descargar el dataset
@@ -478,9 +472,9 @@ document.write(`
 </section>
 <hr class="docutils" />
 <section id="instalacion">
-<h2>Instalación<a class="headerlink" href="#instalacion" title="Link to this heading">#</a></h2>
+<h2>Instalación<a class="headerlink" href="#instalacion" title="Permalink to this heading">#</a></h2>
 <section id="requisitos">
-<h3>Requisitos<a class="headerlink" href="#requisitos" title="Link to this heading">#</a></h3>
+<h3>Requisitos<a class="headerlink" href="#requisitos" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Python ≥ 3.10</p></li>
 <li><p>(Opcional) GPU NVIDIA + drivers CUDA para acelerar XGBoost.</p></li>
@@ -488,7 +482,7 @@ document.write(`
 </ul>
 </section>
 <section id="setup-local">
-<h3>Setup local<a class="headerlink" href="#setup-local" title="Link to this heading">#</a></h3>
+<h3>Setup local<a class="headerlink" href="#setup-local" title="Permalink to this heading">#</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clonar</span>
 git<span class="w"> </span>clone<span class="w"> </span>&lt;tu-repo&gt;
 <span class="nb">cd</span><span class="w"> </span>telco-churn-mlops
@@ -509,7 +503,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </s
 </section>
 <hr class="docutils" />
 <section id="uso-notebooks">
-<h2>Uso — Notebooks<a class="headerlink" href="#uso-notebooks" title="Link to this heading">#</a></h2>
+<h2>Uso — Notebooks<a class="headerlink" href="#uso-notebooks" title="Permalink to this heading">#</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>jupyter<span class="w"> </span>lab<span class="w">        </span><span class="c1"># o abre los .ipynb directamente desde VS Code</span>
 </pre></div>
 </div>
@@ -525,7 +519,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </s
 </section>
 <hr class="docutils" />
 <section id="uso-script-de-entrenamiento">
-<h2>Uso — Script de entrenamiento<a class="headerlink" href="#uso-script-de-entrenamiento" title="Link to this heading">#</a></h2>
+<h2>Uso — Script de entrenamiento<a class="headerlink" href="#uso-script-de-entrenamiento" title="Permalink to this heading">#</a></h2>
 <p>Para reproducir el entrenamiento sin Jupyter (ej. desde CI o un cron):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Entrenamiento completo, todos los modelos, CPU</span>
 python<span class="w"> </span>train_model.py
@@ -548,14 +542,14 @@ python<span class="w"> </span>train_model.py<span class="w"> </span>--quick
 </section>
 <hr class="docutils" />
 <section id="uso-api-local">
-<h2>Uso — API local<a class="headerlink" href="#uso-api-local" title="Link to this heading">#</a></h2>
+<h2>Uso — API local<a class="headerlink" href="#uso-api-local" title="Permalink to this heading">#</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Asegúrate de haber generado app/model.joblib antes</span>
 uvicorn<span class="w"> </span>app.api:app<span class="w"> </span>--reload<span class="w"> </span>--port<span class="w"> </span><span class="m">8000</span>
 </pre></div>
 </div>
 <p>Documentación interactiva (Swagger UI): http://localhost:8000/docs</p>
 <section id="endpoints">
-<h3>Endpoints<a class="headerlink" href="#endpoints" title="Link to this heading">#</a></h3>
+<h3>Endpoints<a class="headerlink" href="#endpoints" title="Permalink to this heading">#</a></h3>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Método</p></th>
@@ -581,7 +575,7 @@ uvicorn<span class="w"> </span>app.api:app<span class="w"> </span>--reload<span 
 </div>
 </section>
 <section id="ejemplo-curl">
-<h3>Ejemplo <code class="docutils literal notranslate"><span class="pre">curl</span></code><a class="headerlink" href="#ejemplo-curl" title="Link to this heading">#</a></h3>
+<h3>Ejemplo <code class="docutils literal notranslate"><span class="pre">curl</span></code><a class="headerlink" href="#ejemplo-curl" title="Permalink to this heading">#</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:8000/predict<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
@@ -619,9 +613,9 @@ uvicorn<span class="w"> </span>app.api:app<span class="w"> </span>--reload<span 
 </section>
 <hr class="docutils" />
 <section id="uso-docker">
-<h2>Uso — Docker<a class="headerlink" href="#uso-docker" title="Link to this heading">#</a></h2>
+<h2>Uso — Docker<a class="headerlink" href="#uso-docker" title="Permalink to this heading">#</a></h2>
 <section id="build">
-<h3>Build<a class="headerlink" href="#build" title="Link to this heading">#</a></h3>
+<h3>Build<a class="headerlink" href="#build" title="Permalink to this heading">#</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>telco-churn-api<span class="w"> </span>.
 </pre></div>
 </div>
@@ -630,7 +624,7 @@ uvicorn<span class="w"> </span>app.api:app<span class="w"> </span>--reload<span 
 </div></blockquote>
 </section>
 <section id="ejecucion-modo-persistente">
-<h3>Ejecución (modo persistente)<a class="headerlink" href="#ejecucion-modo-persistente" title="Link to this heading">#</a></h3>
+<h3>Ejecución (modo persistente)<a class="headerlink" href="#ejecucion-modo-persistente" title="Permalink to this heading">#</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Crear contenedor con nombre fijo (solo la primera vez)</span>
 docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>telco-churn-container<span class="w"> </span>-p<span class="w"> </span><span class="m">8000</span>:8000<span class="w"> </span>telco-churn-api
 
@@ -647,7 +641,7 @@ curl<span class="w"> </span>http://localhost:8000/health
 </div>
 </section>
 <section id="persistencia-y-volumenes">
-<h3>Persistencia y volúmenes<a class="headerlink" href="#persistencia-y-volumenes" title="Link to this heading">#</a></h3>
+<h3>Persistencia y volúmenes<a class="headerlink" href="#persistencia-y-volumenes" title="Permalink to this heading">#</a></h3>
 <p>Si quisieras montar un modelo entrenado externamente (sin reconstruir la imagen):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>telco-churn-container<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-p<span class="w"> </span><span class="m">8000</span>:8000<span class="w"> </span><span class="se">\</span>
@@ -660,7 +654,7 @@ curl<span class="w"> </span>http://localhost:8000/health
 </section>
 <hr class="docutils" />
 <section id="tests">
-<h2>Tests<a class="headerlink" href="#tests" title="Link to this heading">#</a></h2>
+<h2>Tests<a class="headerlink" href="#tests" title="Permalink to this heading">#</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Desde la raíz del proyecto</span>
 pytest<span class="w"> </span>tests/<span class="w"> </span>-v
 </pre></div>
@@ -674,7 +668,7 @@ pytest<span class="w"> </span>tests/<span class="w"> </span>-v
 </section>
 <hr class="docutils" />
 <section id="ci-cd">
-<h2>CI/CD<a class="headerlink" href="#ci-cd" title="Link to this heading">#</a></h2>
+<h2>CI/CD<a class="headerlink" href="#ci-cd" title="Permalink to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">.github/workflows/ci.yml</span></code> define un pipeline que se dispara en cada push y pull request a <code class="docutils literal notranslate"><span class="pre">main</span></code>:</p>
 <ol class="arabic simple">
 <li><p><strong>Lint</strong> con flake8 (configuración relajada en E501/W503).</p></li>
@@ -685,10 +679,10 @@ pytest<span class="w"> </span>tests/<span class="w"> </span>-v
 </section>
 <hr class="docutils" />
 <section id="recomendaciones-de-mlops">
-<h2>Recomendaciones de MLOps<a class="headerlink" href="#recomendaciones-de-mlops" title="Link to this heading">#</a></h2>
+<h2>Recomendaciones de MLOps<a class="headerlink" href="#recomendaciones-de-mlops" title="Permalink to this heading">#</a></h2>
 <p>Lo que está incluido es un MVP. Para un sistema productivo de verdad, los siguientes pasos son razonables:</p>
 <section id="monitoreo-en-produccion">
-<h3>1. Monitoreo en producción<a class="headerlink" href="#monitoreo-en-produccion" title="Link to this heading">#</a></h3>
+<h3>1. Monitoreo en producción<a class="headerlink" href="#monitoreo-en-produccion" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p><strong>Logging estructurado</strong> de cada predicción (input, output, latencia, modelo) → Elastic / Datadog / Cloudwatch.</p></li>
 <li><p><strong>Métricas Prometheus</strong> vía <code class="docutils literal notranslate"><span class="pre">prometheus-fastapi-instrumentator</span></code>: requests/seg, latencia P95, error rate.</p></li>
@@ -696,14 +690,14 @@ pytest<span class="w"> </span>tests/<span class="w"> </span>-v
 </ul>
 </section>
 <section id="deteccion-de-deriva-drift">
-<h3>2. Detección de deriva (drift)<a class="headerlink" href="#deteccion-de-deriva-drift" title="Link to this heading">#</a></h3>
+<h3>2. Detección de deriva (drift)<a class="headerlink" href="#deteccion-de-deriva-drift" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p><strong>Data drift</strong>: monitorear distribuciones de las features de input vs. distribución de entrenamiento. Herramientas: <code class="docutils literal notranslate"><span class="pre">evidently</span></code>, <code class="docutils literal notranslate"><span class="pre">whylogs</span></code>, <code class="docutils literal notranslate"><span class="pre">nannyml</span></code>.</p></li>
 <li><p><strong>Concept drift</strong>: cuando se conoce el outcome (churn real a los X meses), comparar predicciones vs. realidad. Si el AUC en producción baja &gt; 5% del baseline, disparar reentrenamiento.</p></li>
 </ul>
 </section>
 <section id="reentrenamiento-programado">
-<h3>3. Reentrenamiento programado<a class="headerlink" href="#reentrenamiento-programado" title="Link to this heading">#</a></h3>
+<h3>3. Reentrenamiento programado<a class="headerlink" href="#reentrenamiento-programado" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Cron job o Airflow DAG que:</p>
 <ol class="arabic simple">
@@ -717,7 +711,7 @@ pytest<span class="w"> </span>tests/<span class="w"> </span>-v
 </ul>
 </section>
 <section id="despliegue-en-la-nube">
-<h3>4. Despliegue en la nube<a class="headerlink" href="#despliegue-en-la-nube" title="Link to this heading">#</a></h3>
+<h3>4. Despliegue en la nube<a class="headerlink" href="#despliegue-en-la-nube" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p><strong>Opción simple</strong>: AWS App Runner, Google Cloud Run, Azure Container Apps — toman tu imagen Docker y la escalan automáticamente. Coste bajo, latencia decente.</p></li>
 <li><p><strong>Opción robusta</strong>: EKS/GKE/AKS con HPA (Horizontal Pod Autoscaler) sobre métricas de CPU o requests/seg. Configura readinessProbe apuntando a <code class="docutils literal notranslate"><span class="pre">/health</span></code>.</p></li>
@@ -725,7 +719,7 @@ pytest<span class="w"> </span>tests/<span class="w"> </span>-v
 </ul>
 </section>
 <section id="versionado-y-registry">
-<h3>5. Versionado y registry<a class="headerlink" href="#versionado-y-registry" title="Link to this heading">#</a></h3>
+<h3>5. Versionado y registry<a class="headerlink" href="#versionado-y-registry" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p><strong>MLflow Tracking</strong> para registrar cada experimento (hiperparámetros, métricas, artefactos).</p></li>
 <li><p><strong>MLflow Model Registry</strong> para versionar <code class="docutils literal notranslate"><span class="pre">model.joblib</span></code> con etapas <code class="docutils literal notranslate"><span class="pre">Staging</span> <span class="pre">→</span> <span class="pre">Production</span> <span class="pre">→</span> <span class="pre">Archived</span></code>.</p></li>
@@ -733,14 +727,14 @@ pytest<span class="w"> </span>tests/<span class="w"> </span>-v
 </ul>
 </section>
 <section id="escalabilidad">
-<h3>6. Escalabilidad<a class="headerlink" href="#escalabilidad" title="Link to this heading">#</a></h3>
+<h3>6. Escalabilidad<a class="headerlink" href="#escalabilidad" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Para latencias &lt; 50ms y tráfico alto, considera serializar el pipeline a <strong>ONNX</strong> y servirlo con Triton Inference Server o ONNX Runtime — ganancias de 2–10× en latencia.</p></li>
 <li><p>Inferencia por lotes (batch endpoints) para reportes diarios, en vez de llamadas individuales.</p></li>
 </ul>
 </section>
 <section id="seguridad">
-<h3>7. Seguridad<a class="headerlink" href="#seguridad" title="Link to this heading">#</a></h3>
+<h3>7. Seguridad<a class="headerlink" href="#seguridad" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>API behind un API Gateway con autenticación (API key, OAuth2).</p></li>
 <li><p>Rate limiting por cliente.</p></li>
@@ -751,7 +745,7 @@ pytest<span class="w"> </span>tests/<span class="w"> </span>-v
 </section>
 <hr class="docutils" />
 <section id="licencia-y-referencias">
-<h2>Licencia y referencias<a class="headerlink" href="#licencia-y-referencias" title="Link to this heading">#</a></h2>
+<h2>Licencia y referencias<a class="headerlink" href="#licencia-y-referencias" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Dataset: <a class="reference external" href="https://www.kaggle.com/datasets/blastchar/telco-customer-churn">Telco Customer Churn (Kaggle, BlastChar)</a>.</p></li>
 <li><p>Bibliografía base: capítulo «Random Forest y XGBoost» de Lihki Rubio.</p></li>
@@ -867,7 +861,7 @@ Por JuanesGarciaGomez
 
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright 2022.
       <br/>
     
   </p>

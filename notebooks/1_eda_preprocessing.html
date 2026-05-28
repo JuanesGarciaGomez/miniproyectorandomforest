@@ -1,12 +1,13 @@
 
+
 <!DOCTYPE html>
 
 
-<html lang="es" data-content_root="../" >
+<html lang="es" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>1. EDA y Preprocesamiento — Telco Customer Churn &#8212; Predictor de Churn Telco — MLOps</title>
   
@@ -28,36 +29,40 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../_static/documentation_options.js?v=78d55cf8"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../_static/copybutton.js?v=f281be69"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Haz clic para mostrar';</script>
     <script>let toggleHintHide = 'Haz clic para ocultar';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js?v=b8b12719"></script>
-    <script src="../_static/translations.js?v=d190bf04"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/translations.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js?v=f930bc37"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/1_eda_preprocessing';</script>
     <link rel="index" title="Índice" href="../genindex.html" />
     <link rel="search" title="Búsqueda" href="../search.html" />
@@ -154,18 +159,7 @@
     <p class="title logo__title">Predictor de Churn Telco — MLOps</p>
   
 </a></div>
-        <div class="sidebar-primary-item">
-
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Búsqueda</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
-        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -207,9 +201,9 @@
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</button></div>
+</label></div>
       
     </div>
   
@@ -318,9 +312,9 @@ document.write(`
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</button>
+</label>
 </div></div>
       
     </div>
@@ -358,9 +352,11 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="eda-y-preprocesamiento-telco-customer-churn">
-<h1>1. EDA y Preprocesamiento — Telco Customer Churn<a class="headerlink" href="#eda-y-preprocesamiento-telco-customer-churn" title="Link to this heading">#</a></h1>
+<h1>1. EDA y Preprocesamiento — Telco Customer Churn<a class="headerlink" href="#eda-y-preprocesamiento-telco-customer-churn" title="Permalink to this heading">#</a></h1>
+<p>Integrantes: Juan Garcia, Luis Mariño y Alejandro Carvajal</p>
 <p>Este notebook hace el análisis exploratorio del dataset y deja documentadas las decisiones de limpieza que luego usará el módulo <code class="docutils literal notranslate"><span class="pre">app/preprocessing.py</span></code> durante el entrenamiento.</p>
-<p><strong>Objetivo</strong>: entender la estructura de los datos, detectar problemas (valores faltantes, tipos incorrectos, desbalance de clases) y proponer un esquema de preprocesamiento robusto.</p>
+<p>Objetivo: entender la estructura de los datos, detectar problemas (valores faltantes, tipos incorrectos, desbalance de clases) y proponer un esquema de preprocesamiento robusto.</p>
+<p>Integrantes: Juan Garcia, Alejandro Carvajal, Luis Esteban Mariño</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
@@ -381,7 +377,7 @@ document.write(`
 </div>
 </div>
 <section id="carga-inicial">
-<h2>1.1 Carga inicial<a class="headerlink" href="#carga-inicial" title="Link to this heading">#</a></h2>
+<h2>1.1 Carga inicial<a class="headerlink" href="#carga-inicial" title="Permalink to this heading">#</a></h2>
 <p>Leemos el CSV y revisamos las dimensiones, tipos de datos y primeras filas.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -399,7 +395,7 @@ document.write(`
 </div>
 </div>
 </div>
-<p><strong>Análisis</strong>: el dataset trae aproximadamente 7043 filas y 21 columnas. La columna <code class="docutils literal notranslate"><span class="pre">customerID</span></code> es un identificador único sin valor predictivo; la quitamos. La columna <strong><code class="docutils literal notranslate"><span class="pre">TotalCharges</span></code> aparece como <code class="docutils literal notranslate"><span class="pre">object</span></code></strong>: pandas no la reconoció como numérica porque contiene espacios en blanco (<code class="docutils literal notranslate"><span class="pre">&quot;</span> <span class="pre">&quot;</span></code>) en clientes con <code class="docutils literal notranslate"><span class="pre">tenure==0</span></code> (recién contratados). Eso es un valor faltante disfrazado y hay que arreglarlo.</p>
+<p>El dataset trae aproximadamente 7043 filas y 21 columnas. La columna <code class="docutils literal notranslate"><span class="pre">customerID</span></code> es un identificador único sin valor predictivo; la quitamos. La columna <code class="docutils literal notranslate"><span class="pre">TotalCharges</span></code> aparece como <code class="docutils literal notranslate"><span class="pre">object</span></code>: pandas no la reconoció como numérica porque contiene espacios en blanco (<code class="docutils literal notranslate"><span class="pre">&quot;</span> <span class="pre">&quot;</span></code>) en clientes con <code class="docutils literal notranslate"><span class="pre">tenure==0</span></code> (recién contratados). Eso es un valor faltante disfrazado y hay que arreglarlo.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;customerID&quot;</span><span class="p">])</span>
@@ -415,7 +411,7 @@ document.write(`
 <p><strong>Análisis</strong>: como esperábamos, los faltantes coinciden con <code class="docutils literal notranslate"><span class="pre">tenure</span> <span class="pre">==</span> <span class="pre">0</span></code>. Como son pocos (~11), podemos imputarlos con la mediana en el pipeline sin afectar significativamente la distribución.</p>
 </section>
 <section id="variable-objetivo">
-<h2>1.2 Variable objetivo<a class="headerlink" href="#variable-objetivo" title="Link to this heading">#</a></h2>
+<h2>1.2 Variable objetivo<a class="headerlink" href="#variable-objetivo" title="Permalink to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">Churn</span></code> viene como Yes/No. La convertimos a binaria (1 = abandona, 0 = se queda) y revisamos el balance.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -432,7 +428,7 @@ document.write(`
 </div>
 </div>
 </div>
-<p><strong>Análisis</strong>: aproximadamente el <strong>27% de los clientes abandona</strong>, el 73% se queda. Hay desbalance moderado pero manejable. Estrategias posibles:</p>
+<p>Aproximadamente el 27% de los clientes abandona, el 73% se queda. Hay desbalance moderado pero manejable. Estrategias posibles:</p>
 <ul class="simple">
 <li><p>Usar <code class="docutils literal notranslate"><span class="pre">class_weight='balanced'</span></code> en Random Forest / LightGBM.</p></li>
 <li><p>Usar <code class="docutils literal notranslate"><span class="pre">scale_pos_weight</span> <span class="pre">≈</span> <span class="pre">73/27</span> <span class="pre">≈</span> <span class="pre">2.7</span></code> en XGBoost.</p></li>
@@ -441,7 +437,7 @@ document.write(`
 <p>No vamos a hacer oversampling/SMOTE porque para árboles boosting no suele aportar valor y sí complica la interpretación.</p>
 </section>
 <section id="variables-numericas">
-<h2>1.3 Variables numéricas<a class="headerlink" href="#variables-numericas" title="Link to this heading">#</a></h2>
+<h2>1.3 Variables numéricas<a class="headerlink" href="#variables-numericas" title="Permalink to this heading">#</a></h2>
 <p>Tres columnas estrictamente numéricas: <code class="docutils literal notranslate"><span class="pre">tenure</span></code>, <code class="docutils literal notranslate"><span class="pre">MonthlyCharges</span></code>, <code class="docutils literal notranslate"><span class="pre">TotalCharges</span></code>. Más <code class="docutils literal notranslate"><span class="pre">SeniorCitizen</span></code> que ya viene 0/1.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -483,10 +479,10 @@ document.write(`
 </div>
 </div>
 </div>
-<p><strong>Análisis</strong>: <code class="docutils literal notranslate"><span class="pre">tenure</span></code> tiene correlación negativa con <code class="docutils literal notranslate"><span class="pre">Churn</span></code> (más antigüedad → menos abandono); <code class="docutils literal notranslate"><span class="pre">MonthlyCharges</span></code> correlaciona positivamente. La correlación de Pearson es lineal y subestima relaciones no lineales — los modelos de árbol capturarán el resto.</p>
+<p><code class="docutils literal notranslate"><span class="pre">tenure</span></code> tiene correlación negativa con <code class="docutils literal notranslate"><span class="pre">Churn</span></code> (más antigüedad → menos abandono); <code class="docutils literal notranslate"><span class="pre">MonthlyCharges</span></code> correlaciona positivamente. La correlación de Pearson es lineal y subestima relaciones no lineales — los modelos de árbol capturarán el resto.</p>
 </section>
 <section id="variables-categoricas">
-<h2>1.4 Variables categóricas<a class="headerlink" href="#variables-categoricas" title="Link to this heading">#</a></h2>
+<h2>1.4 Variables categóricas<a class="headerlink" href="#variables-categoricas" title="Permalink to this heading">#</a></h2>
 <p>Quince columnas categóricas. Inspeccionamos cardinalidad y tasa de churn por categoría.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -518,16 +514,16 @@ document.write(`
 </div>
 </div>
 </div>
-<p><strong>Análisis</strong> — patrones que el modelo debería capturar:</p>
+<p>Los patrones que el modelo debería capturar:</p>
 <ul class="simple">
-<li><p><strong><code class="docutils literal notranslate"><span class="pre">Contract</span> <span class="pre">=</span> <span class="pre">Month-to-month</span></code></strong> dispara la tasa de churn por encima del 40%, mientras <code class="docutils literal notranslate"><span class="pre">Two</span> <span class="pre">year</span></code> la baja a menos del 5%. Variable muy poderosa.</p></li>
-<li><p><strong><code class="docutils literal notranslate"><span class="pre">PaymentMethod</span> <span class="pre">=</span> <span class="pre">Electronic</span> <span class="pre">check</span></code></strong> está asociado a tasas altas, posiblemente porque correlaciona con clientes nuevos / contratos mes a mes.</p></li>
-<li><p><strong><code class="docutils literal notranslate"><span class="pre">InternetService</span> <span class="pre">=</span> <span class="pre">Fiber</span> <span class="pre">optic</span></code></strong> tiene churn más alto que DSL — los clientes de fibra están menos satisfechos (¿precio? ¿calidad de servicio?). Vale la pena destacarlo al área de negocio.</p></li>
-<li><p><strong><code class="docutils literal notranslate"><span class="pre">OnlineSecurity</span></code> y <code class="docutils literal notranslate"><span class="pre">TechSupport</span></code></strong> muestran que cuando el cliente NO tiene estos servicios contratados el churn es más alto. Hay una oportunidad clara de retención cruzando estos servicios.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Contract</span> <span class="pre">=</span> <span class="pre">Month-to-month</span></code> dispara la tasa de churn por encima del 40%, mientras <code class="docutils literal notranslate"><span class="pre">Two</span> <span class="pre">year</span></code> la baja a menos del 5%. Variable muy poderosa.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PaymentMethod</span> <span class="pre">=</span> <span class="pre">Electronic</span> <span class="pre">check</span></code> está asociado a tasas altas, posiblemente porque correlaciona con clientes nuevos / contratos mes a mes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">InternetService</span> <span class="pre">=</span> <span class="pre">Fiber</span> <span class="pre">optic</span></code> tiene churn más alto que DSL — los clientes de fibra están menos satisfechos (¿precio? ¿calidad de servicio?). Vale la pena destacarlo al área de negocio.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">OnlineSecurity</span></code> y <code class="docutils literal notranslate"><span class="pre">TechSupport</span></code> muestran que cuando el cliente NO tiene estos servicios contratados el churn es más alto. Hay una oportunidad clara de retención cruzando estos servicios.</p></li>
 </ul>
 </section>
 <section id="decisiones-de-preprocesamiento">
-<h2>1.5 Decisiones de preprocesamiento<a class="headerlink" href="#decisiones-de-preprocesamiento" title="Link to this heading">#</a></h2>
+<h2>1.5 Decisiones de preprocesamiento<a class="headerlink" href="#decisiones-de-preprocesamiento" title="Permalink to this heading">#</a></h2>
 <p>Con base en el EDA, fijamos las siguientes decisiones que se implementan en <code class="docutils literal notranslate"><span class="pre">app/preprocessing.py</span></code>:</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -558,7 +554,6 @@ document.write(`
 </table>
 </div>
 <p>Estas decisiones se cristalizan en <code class="docutils literal notranslate"><span class="pre">build_preprocessor()</span></code> y <code class="docutils literal notranslate"><span class="pre">build_feature_frame()</span></code> del módulo, que también será importado por la API en producción para garantizar el mismo tratamiento.</p>
-<p>→ <strong>Siguiente notebook</strong>: <code class="docutils literal notranslate"><span class="pre">2_model_training.ipynb</span></code> entrena Random Forest, XGBoost (GPU), CatBoost y LightGBM.</p>
 </section>
 <div class="toctree-wrapper compound">
 </div>
@@ -648,7 +643,7 @@ Por JuanesGarciaGomez
 
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright 2022.
       <br/>
     
   </p>

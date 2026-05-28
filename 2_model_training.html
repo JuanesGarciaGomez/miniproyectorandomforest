@@ -1,12 +1,13 @@
 
+
 <!DOCTYPE html>
 
 
-<html lang="es" data-content_root="./" >
+<html lang="es" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>2. Entrenamiento y evaluación de modelos &#8212; Predictor de Churn Telco — MLOps</title>
   
@@ -28,36 +29,40 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="_static/documentation_options.js?v=78d55cf8"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="_static/copybutton.js?v=f281be69"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Haz clic para mostrar';</script>
     <script>let toggleHintHide = 'Haz clic para ocultar';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js?v=b8b12719"></script>
-    <script src="_static/translations.js?v=d190bf04"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/translations.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js?v=f930bc37"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '2_model_training';</script>
     <link rel="index" title="Índice" href="genindex.html" />
     <link rel="search" title="Búsqueda" href="search.html" />
@@ -153,18 +158,7 @@
     <p class="title logo__title">Predictor de Churn Telco — MLOps</p>
   
 </a></div>
-        <div class="sidebar-primary-item">
-
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Búsqueda</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
-        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -206,9 +200,9 @@
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</button></div>
+</label></div>
       
     </div>
   
@@ -317,9 +311,9 @@ document.write(`
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</button>
+</label>
 </div></div>
       
     </div>
@@ -361,7 +355,7 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="entrenamiento-y-evaluacion-de-modelos">
-<h1>2. Entrenamiento y evaluación de modelos<a class="headerlink" href="#entrenamiento-y-evaluacion-de-modelos" title="Link to this heading">#</a></h1>
+<h1>2. Entrenamiento y evaluación de modelos<a class="headerlink" href="#entrenamiento-y-evaluacion-de-modelos" title="Permalink to this heading">#</a></h1>
 <p>Entrenamos cuatro clasificadores distintos sobre el mismo split, con <code class="docutils literal notranslate"><span class="pre">Pipeline</span></code> (preprocesamiento + modelo) y búsqueda de hiperparámetros vía <code class="docutils literal notranslate"><span class="pre">GridSearchCV</span></code> con validación cruzada estratificada de 5 folds.</p>
 <p>Modelos:</p>
 <ol class="arabic simple">
@@ -408,7 +402,7 @@ document.write(`
 </div>
 </div>
 <section id="carga-y-split">
-<h2>2.1 Carga y split<a class="headerlink" href="#carga-y-split" title="Link to this heading">#</a></h2>
+<h2>2.1 Carga y split<a class="headerlink" href="#carga-y-split" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;telco_churn.csv&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;customerID&quot;</span><span class="p">])</span>
@@ -442,7 +436,7 @@ Churn rate train: 0.265 | test: 0.265
 </div>
 </section>
 <section id="funcion-de-evaluacion-comun">
-<h2>2.2 Función de evaluación común<a class="headerlink" href="#funcion-de-evaluacion-comun" title="Link to this heading">#</a></h2>
+<h2>2.2 Función de evaluación común<a class="headerlink" href="#funcion-de-evaluacion-comun" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X_te</span><span class="p">,</span> <span class="n">y_te</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
@@ -468,7 +462,7 @@ Churn rate train: 0.265 | test: 0.265
 </div>
 </section>
 <section id="random-forest">
-<h2>2.3 Random Forest<a class="headerlink" href="#random-forest" title="Link to this heading">#</a></h2>
+<h2>2.3 Random Forest<a class="headerlink" href="#random-forest" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rf_pipe</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
@@ -521,7 +515,7 @@ Mejores params: {&#39;model__bootstrap&#39;: True, &#39;model__criterion&#39;: &
 </ul>
 </section>
 <section id="xgboost-con-gpu">
-<h2>2.4 XGBoost (con GPU )<a class="headerlink" href="#xgboost-con-gpu" title="Link to this heading">#</a></h2>
+<h2>2.4 XGBoost (con GPU )<a class="headerlink" href="#xgboost-con-gpu" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">xgboost</span><span class="w"> </span><span class="kn">import</span> <span class="n">XGBClassifier</span>
@@ -585,7 +579,7 @@ Mejores params: {&#39;model__colsample_bytree&#39;: 0.8, &#39;model__gamma&#39;:
 </ul>
 </section>
 <section id="catboost">
-<h2>2.5 CatBoost<a class="headerlink" href="#catboost" title="Link to this heading">#</a></h2>
+<h2>2.5 CatBoost<a class="headerlink" href="#catboost" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">catboost</span><span class="w"> </span><span class="kn">import</span> <span class="n">CatBoostClassifier</span>
@@ -633,7 +627,7 @@ Mejores params: {&#39;model__bagging_temperature&#39;: 0, &#39;model__border_cou
 <p>Aunque CatBoost tiene categóricas nativas (sin one-hot), aquí lo tenemos ya transformado para mantener todos los modelos sobre el mismo input. Aún así suele competir muy bien y maneja sobreajuste con <code class="docutils literal notranslate"><span class="pre">l2_leaf_reg</span></code> y <code class="docutils literal notranslate"><span class="pre">bagging_temperature</span></code>.</p>
 </section>
 <section id="lightgbm">
-<h2>2.6 LightGBM<a class="headerlink" href="#lightgbm" title="Link to this heading">#</a></h2>
+<h2>2.6 LightGBM<a class="headerlink" href="#lightgbm" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">lightgbm</span><span class="w"> </span><span class="kn">import</span> <span class="n">LGBMClassifier</span>
@@ -688,7 +682,7 @@ Mejores params: {&#39;model__colsample_bytree&#39;: 0.8, &#39;model__learning_ra
 <p>Extremadamente rápido . Crece árboles por hojas (<code class="docutils literal notranslate"><span class="pre">leaf-wise</span></code>) en vez de por nivel, lo que lo hace muy preciso pero más propenso al sobreajuste si <code class="docutils literal notranslate"><span class="pre">num_leaves</span></code> es alto. Aquí lo controlamos con <code class="docutils literal notranslate"><span class="pre">min_child_samples</span></code>.</p>
 </section>
 <section id="comparacion-final">
-<h2>2.7 Comparación final<a class="headerlink" href="#comparacion-final" title="Link to this heading">#</a></h2>
+<h2>2.7 Comparación final<a class="headerlink" href="#comparacion-final" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">rf_metrics</span><span class="p">,</span> <span class="n">xgb_metrics</span><span class="p">,</span> <span class="n">cb_metrics</span><span class="p">,</span> <span class="n">lgbm_metrics</span><span class="p">])</span>
@@ -895,7 +889,7 @@ Mejores params: {&#39;model__colsample_bytree&#39;: 0.8, &#39;model__learning_ra
 </div>
 </section>
 <section id="importancia-de-variables">
-<h2>2.8 Importancia de variables<a class="headerlink" href="#importancia-de-variables" title="Link to this heading">#</a></h2>
+<h2>2.8 Importancia de variables<a class="headerlink" href="#importancia-de-variables" title="Permalink to this heading">#</a></h2>
 <p>Extraemos <code class="docutils literal notranslate"><span class="pre">feature_importances_</span></code> de cada modelo y graficamos el Top 10. Como el preprocesador hace one-hot, primero recuperamos los nombres expandidos de las features.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -933,7 +927,7 @@ Mejores params: {&#39;model__colsample_bytree&#39;: 0.8, &#39;model__learning_ra
 </ul>
 </section>
 <section id="seleccion-y-guardado-del-mejor-modelo">
-<h2>2.9 Selección y guardado del mejor modelo<a class="headerlink" href="#seleccion-y-guardado-del-mejor-modelo" title="Link to this heading">#</a></h2>
+<h2>2.9 Selección y guardado del mejor modelo<a class="headerlink" href="#seleccion-y-guardado-del-mejor-modelo" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">best</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span>
@@ -1059,7 +1053,7 @@ Por JuanesGarciaGomez
 
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright 2022.
       <br/>
     
   </p>
